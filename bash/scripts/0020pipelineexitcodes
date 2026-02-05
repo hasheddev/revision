@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+cat /moneexixt | tr , :
+
+echo "${PIPESTATUS[*]}"
+
+true | false | true | false
+echo "${PIPESTATUS[*]}"
+
+#() = subshell
+(exit 4) | (exit 7) | (exit 100) | (exit 0)
+echo "${PIPESTATUS[*]}"
+
+#pipe status should be saved after a command is run or it is overwritten by next command

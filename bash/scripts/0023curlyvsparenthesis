@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+. ./lib/greetings || exit 1
+
+#this modifies name to dave if local is not used in the function or use () to surround function body
+
+name="buddy"
+echo "before name = $name"
+greet dave
+echo "after name = $name"
+
+# (code) = subshell global variables modified are revert to state before modification after subshell exit 
+#another way to run subshell that allows pipeline is:
+name="buddy"
+
+#{} means group command and execute in current shell a pipe in this makes it execute the group in a sub shell
+#this allows piping of sub commands but modifies global variable if no pipe is used { greet dave; } would modify name but with pipes it does not
+echo "before name = $name {}"
+{ greet dave | tr a o; } | nl
+echo "after name = $name {}"
+
+# this uses a function that runs in a subshell
+name="buddy"
+echo "before name = $name"
+greetp dave
+echo "after name = $name"

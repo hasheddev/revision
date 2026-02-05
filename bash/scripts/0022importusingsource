@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+source ./lib/greetings
+
+#library code is executed when file is sourced
+# . ./lib/greetings  //. also means source in bash dot is more portable
+# . ./lib/greetings || exit 3
+
+#libdirs=./lib     seaches for files in directory for file
+# source -p "$libdirs" greetings
+
+# if ! (return 2>dev/null); then
+#     run code onlyif imported file is excuted directly similar to if __name__ == "__main__"
+# fi
+
+greet dave
+greet john
+goodbye budd

@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+a=2
+b=2
+
+if [[ $a == $b ]]; then
+    echo 'a and b are same'
+    echo "a and b are same"
+    echo a       and b are same
+fi
+
+c=10
+d=3
+
+if [[ $c != $d ]]; then
+    echo 'c and d are not the same'
+fi
+
+if [[ -f file.txt ]]; then
+    echo "file.txt exists and is a file"
+fi
+
+while [[ -f file.txt ]]; do
+    echo "file.txt exists and is a file"
+    sleep 1
+done
+echo file is gone
+
+# do unti condition becomes true
+# until [[ -f file.txt ]]; do
+#     echo "file.txt does not exist"
+#     sleep 1
+# done
+
+echo file now exists
+
+# true command exits with 0 false command exits with 1
+#if command   is true if command succeds 
+#[[ -f file.txt ]] && echo it exists  
+#[ -f file.txt ]  or test -f file  double [[]] is bash specific
+
+if echo hi; then
+    echo "if statement was true"
+fi

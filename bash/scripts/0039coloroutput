@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+#use ansi escape sequences to instruc terminal to colorize output
+printf '%b' '\x61' '\x0a' # | xxd prints 610a
+
+printf '%b' '\x1b'   #unprintable '\033' in octal 27 in decimal the ansi ESCAPE character
+
+#printf '\e' | xxd    prints 1b
+
+printf '\e[1mBold\e[0m\n'  #(\e[1m)opensesquence (\e[0) close sequence 30 - black 32 - red 32 - green
+
+esc=$'\e'
+printf "$esc[33mYellow$esc[0m\n"
+#not portable    tput bold; echo hi; tput sgr0  tput reset resets terminal
+# '\e[38;5;200mColor 0\n\e[0m' useing 255 colors 5=256colormode
+
+for i in {0..255}; do
+    printf '\e[38;5;%dmColor %d\e[0m\n' "$i" "$i"
+done
+
+#rgb coloring not protable
+# printf '\e[38;2;%d;%d;%dmColor %d\e[0m\n'  122 255 123

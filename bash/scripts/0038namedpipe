@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+#mkfifo ./pipe #pipe blocks process that initiates until it is read if written to or written to if read
+
+# while true; do
+#     while read -r line; do
+#         echo "[read line] $line"
+#     done
+# done
+
+# exec 3>/dev/null open file descriptor 3 aand writes it to dev null
+exec {fd}<>pipe #store file descriptor opened in fd for read and write
+
+client() {
+    local name=$1
+
+    while true; do
+        sleep 3.5
+        echo "[client $name] hello" >&$fd
+    done
+}
+
+client foo &
+client bar &
+client baz &
+
+while read -r -u "$fd" line; do
+    echo "[read line] $line"
+done

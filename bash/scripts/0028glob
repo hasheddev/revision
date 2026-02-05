@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+
+#echo file/*  file/* expands to a single string of file/filenames in file/
+
+#ls -l files/ba?.txt   matchs bat.txt bar.txt but not ba.txt
+# ls -l files/ba[abcr].txt matches bab.txt bab.txt bac.txt and bar.txt
+
+#Extendeld Globbing   help shopt       shopt lists sheloptions
+#shopt extglob   shoes status of bash option   on/off
+#turn on or off
+#shopt -s optionname    turn on optio -s = set
+
+#shopt -u optionname     turn off shelloption -u = unset
+#shopt -s extglob
+
+#turn off history expansion for this to remove the error event not found  set +H  to turn off history expansion -H to turn it on
+#list files that do not end in .txt
+ls -l files/!(*.txt)
+
+ls -l files/+(foo|bar).txt  #match foo or bar.txt +=one or many times
+#?  0 or one times  * are 0 or many times
+ls -l files/+(foo).* #foo.txt foo.jpg ,atches foofoo.txt
+ls -l files/@(foo).* #foo.txt foo.jpg  does not match foofoo.txt match must be exact
+ls -l files/@(foo|bar).*
+
+#ls emptydir/*    this is not expanded as dir is empty and ls gets the string as arg causing error
+#same for ptint '<%s>' empty/*  prints <empty/*>
+
+#shopt -s nullglob   #same for ptint '<%s>' empty/*  prints <>
+# nullglob resolves to empty values if not set an array would also contain the literal value
+#ls empty/*  would list current directory
+#shopt -s dotglob   also globs hidden files
+#shopt -s globstar to make commands recurse
+
+printf "%s\n" **

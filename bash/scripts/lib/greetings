@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+greet() {
+    name=$1
+    echo "hello $name"
+}
+
+goodbye() {
+    name=$1
+    echo "goodbye $name"
+}
+
+greetp() (
+    name=$1
+    echo "hello $name"
+)

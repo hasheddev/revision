@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+myfunc() {
+    echo YSAP
+    return 50
+}
+
+var=$(myfunc)
+code=$?
+
+# return code can only be 0-255 and can be accessed with $? while stdout is captured by varaible
+#stderr outputs before captured variable
+#var=$(myfunc 2>/dev/null) does not print standard errror 2>&1  std err is also captured by variable in this case for var=
+#redirect stdout and stderr to dev null by >/dev/null 2>&1  >/dev/null==1>/dev/null
+#capture just stderr into a variables and discard stdout by 2>&1 >/dev/null(or 1>/dev/null)
+echo "output=$var code=$code"

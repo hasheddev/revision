@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+#grep -c d path        gives count of match
+#words=$(grep d ~/.bashrc)
+
+#if not quoting makes things word you should not do it if you want your script to be resilient 
+#no quotes means bash splits by space characters
+# reading entire file is not memory efficient
+
+# i=0
+# for word in $words; do
+#     echo "$word"
+#     (( i++ ))
+# done
+#here string is used below  it must be a string or variable which is fed to the stdin of a command or a loop
+# i=0
+# while read -r word; do
+#     echo "$word"
+#     (( i++ ))
+# done <<< "$words" 
+
+# while iFS=: read -r name pass uid gid gecos home shell; do
+#     echo "$word"
+#     (( i++ ))
+# done < /etc/passwd 
+
+# i=0
+
+# #i would remain 0 because while loop is executed in a sub proces and it's value is lost after this process ends
+# grep d ~/.bashrc | while read -r word; do
+#     echo "$word"
+#     (( i++ ))
+# done
+
+# echo "Found $i words"
+
+i=0
+
+#i would remain 0 because while loop is executed in a sub proces and it's value is lost after this process ends
+
+# reads line by line as output is available but does not have greps exit status
+while read -r word; do
+    echo "$word"
+    (( i++ ))
+done < <(grep d ~/.bashrc)
+
+echo "Found $i words"
+
+#echo would print a file descriptor as the syntax below behaves like a file and can be treated as such as above
+cat <(uname)
+
+# NEVER DO THIS
+#loops over $1 $2 $3  item would be treated as a command to execute
+# for item; do
+#     $item
+#     ## ls uname
+# done

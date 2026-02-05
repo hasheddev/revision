@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+#trap -l # list ctrl +c = SIGINT  SIGWHINCH = terminal resize
+
+cleanup() {
+    echo cleanup func running
+    #exit 5   will be the code if another exit exists in the code and also
+    #if no exit is here in this function the last exit code will be preserved and not the exit code of echo
+}
+
+trap cleanup exit #runs before it exits will not run before killl -9
+
+echo script starting
+echo "-------"
+echo script done
+#exit code in cleanup funtion in preserved and overrides any exitcode before the function is run
+
+my-func() {
+    echo "[DEBUG] running: $BASH_COMMAND"
+}
+
+trap my-func debug
+
+echo script starting after trapping debug
+echo "-------"
+echo script done after trapping debug
+
+#ctr + t send siginfo  might not exist on linux
+
+trap my-func SIGINFO || exit 1
+
+#ctrl +z puts job in background  bg makes process run again fg brings it to the foreground 
+# jobs lists running jobs kill %1 kills job [1] kill %% kill last job put i the background

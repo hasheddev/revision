@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+echo -e "Hello\t$USER"
+
+echo "Hello\t$USER" #prints \t npt tab
+
+echo $'Hello\t$USER' #single quotes = ansi quotes does not expand varaiables but it does expand special characters
+echo $"Hello\t$USER" #does not expand to tab
+
+var=$'Hello\tworld'
+
+echo "$var"
+
+echo $var
+
+echo $'foo\vbar\vbaz' #mobes cursor down one line
+
+echo  $'foo\bbar'
+
+tab=$'\t'
+
+echo "vae${tab}men"

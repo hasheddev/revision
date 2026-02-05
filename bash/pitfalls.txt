@@ -1,0 +1,30 @@
+LS
+ls
+bad = for f in $(ls files) works if no space character is in filenames     good = for f in ./files/*
+for bad name with space ($'n    a') would be 2 files but with good it woud be one
+
+ALIAS 
+alias greet='hello $1 nice to meet you'
+#do not create alias with arguments
+greet dave becomes hello $1 nice to meet you dave ($1 is empy)
+
+STRING LENGTH
+s=$'\e[33mHello World\e[0m'
+echo "${#s}" #length = 20
+#emoji length might differ from byte count gotten from wl -c
+
+FORK BOMB
+:(){ :|:& };:
+means function :
+
+:() {
+    :|: &
+}
+:
+
+myFunc() {
+    myFunc | myFunc &
+}
+myFunc
+
+uniq -c    count

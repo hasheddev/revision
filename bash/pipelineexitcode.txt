@@ -1,0 +1,11 @@
+  $? referes to exit code of the last executed command
+
+  cat /moneexixt | tr , :
+  echo $? give 0
+  //set -o pipefail coud be used
+
+  use $PIPESTATUS an array to check status codes
+
+   cat /moneexixt | tr , :
+
+   echo "${PIPESTATUS[*]}"

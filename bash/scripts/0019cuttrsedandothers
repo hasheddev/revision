@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+#tr treats inputs as individual characters
+cat file.csv | tr , '\t'
+
+cat file.csv | cut -d , -f 1
+
+#-f 1-3,5   gives fields 1, 2, 3, and 6
+#3-   gives field three till the last field
+#split by comma return first item of each line
+# sed -e ''s/bash/fish -e 's/d..v/buddy'
+# sed 's#/bin/bash#/bin/fish'  replacce /bin/bash with /bin/fish
+
+#use : instead of space to split $0 in awk is the entire line
+awk -F: '{ print $1 }'
+
+awk -F: '$1 == "dave" { print $1 }' #execute only of codition is true
+
+# sort | uniq -c # -c = frequency
+
+find . -type f # find in current directory files  -type d -type l for symlinks
+
+find /user/share -type f -name '*.txt' | wc -l # find location
+
+find /user/share -type f -name '*.txt' -exec echo hi i found a file {} yay ';' # {} place holder for file
+
+# xargs echo hi  

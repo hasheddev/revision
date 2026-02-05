@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+thing='whoami'
+nthing=$(whoami)
+
+echo "thing is $thing"
+
+echo "thing is $nthing"
+
+echo `whoami`
+
+echo `echo \`whoami\``
+
+echo "DOLLAR-PARAMSnotataion"
+
+echo "$(echo "$(echo "$(whoami)")")"
+
+#runs inside a subshell i is 6 only as long as the function run
+#without $() i would be 6 if local keyword is not used
+
+i=5
+function myFunc {
+    i=6
+    echo hi
+}
+
+a=$(myFunc)
+
+echo $a
+
+echo "i is $i"
+
+#new syntax for 5.3 or higher
+
+thing=${ myFunc; }
+
+echo $thing

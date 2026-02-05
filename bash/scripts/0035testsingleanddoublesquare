@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+type -a test  #builtin and a bin  program [] == test == /bin/[
+type -a '['  #file /bin/[   is a program /bin/[ -f /etc/passwd ]
+#type -a [[  bash builtin  quote all expansions for []
+
+#if test -f foo.jpg === if [ -f foo.jpp ]  == if [[ -f foo.jpp ]]
+#[ 10 > 9 ] is false it compares string do [ 10 -gt 9 ] or (( 10 > 9 ))

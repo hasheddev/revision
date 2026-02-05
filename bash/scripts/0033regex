@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+re='^(dave|joe)$'
+input='dave'
+
+if [[ $input =~ $re ]]; then
+    echo match
+    echo ${BASH_REMATCH[@]}
+    echo ${BASH_REMATCH[0]} #full string
+    echo ${BASH_REMATCH[1]} #first captured group [2] = second captured group
+    #'^(d|j).*' had been used [1] would be d
+fi

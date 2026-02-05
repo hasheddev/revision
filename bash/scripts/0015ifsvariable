@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+array=(
+    foo 
+    bar 
+    baz
+    "hello world"
+)
+#default IFS = space newline and tab bash uses it's first character to stringify things
+
+#subshell variable changes here are local
+(
+    IFS=,
+    echo "array is ${array[*]}"
+    echo "array keys are ${!array[*]}"
+)

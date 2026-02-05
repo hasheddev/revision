@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+#braces deals with string whlie globing /wildcards deal with underlyinf filesS
+echo {hello,world,foo}
+
+filename='my-file'
+
+echo "$filename."{text,jpg,png}
+
+arr=("$filename."{text,jpg,png})
+
+for item in ${arr[@]}; do
+    echo $item
+done
+
+echo /etc/{foo,bar}/{1,2,3}
+
+#touch {foo,bar,baz}.{jpg,txt}
+# les empty/*.{txt,j[g]}

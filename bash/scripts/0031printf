@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+#print formated data
+
+s='hello world'
+printf "$s\n" #this is dangerous do not do it
+
+printf "the string is (%s)\n" "$s"
+
+printf "%10s" hello  #pad up to 10 using space right justify (      hello)
+printf "%-10s hello" #pad up to 10 using space left justify (hello     )
+printf "<%*s>\n" 10 hello #pad up to 10 using space rigt justify (<     hello>)
+printf "<%-*s>\n" 10 hello #pad up to 10 using space left justify (<hello     >)
+printf "%05d\n" 55 
+
+printf "%05d\n" 010  #converts octal to decimal
+
+printf "%05d\n" 0xff  #converts to decimal prints 255
+
+#%q  makes argument reusable as input for shell input
+
+printf -v var "hello %s" dave
+
+echo $var
+
+#for printf multiple variables can be passed for one format specifier which will be repreated for all input vars

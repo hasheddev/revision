@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+#mini programs without local variables in functions are global
+
+greet() {
+   local name=$1
+   echo "hello $name from greet()" 
+   return 0
+}
+
+for thing in "$@"; do
+    #./0005helloinput "$thing"
+    greet "$thing"
+done
+
+#var=$(greet dave)
+#greet dave >> file.txt

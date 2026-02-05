@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+#-r = raw  read reads one line from input stream
+#this is slower than pipe into another function
+#this does not stop until read fails and it fails if there is no newline chracter ending  data
+#no newline means no data read into variable
+while read -r line; do
+    echo $line
+done
+
+# ./script < path/     == open path link it to script input then run script
+#  < path ./script    also works path must be a file it is opened and fed to command stdin

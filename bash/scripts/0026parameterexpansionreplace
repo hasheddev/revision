@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+
+#name=${1:-$USER}
+#put default if user is empty string or not set
+
+name=${1:-Steve}
+
+echo $name
+
+#require parameter is set empty string "" is valid
+
+name=${1?'You must supply a name'}
+#or name=${1:?'You must supply a name'}
+
+path='/home/name/file.txt'
+
+#replace a with o
+echo "${path/m/o}"
+
+#do this for all occurrence
+echo "${path//m/o}"
+#echo "${path//[mp]/o}"  replace m and p with o
+
+#directory and file names
+dirname "$path"
+basename "$path"
+
+#do the same with
+
+echo ${path#*e}  #delete all from start till e
+
+echo ${path##*/}  #delete greedily till the last / look from the beginning of the variable
+#match till / and delete it and everything to it's left
+
+#% does the opposite starts from end look from the left match / and delete it and everything to it's right
+echo ${path%/*}  #everything till the first slash
+
+s='dave eddy'
+
+echo ${s:1}  #prints ave eddy ${s:3} prints ve eddy
+
+echo ${s:1:3} #gives 3 characters starting with the index 1 character  0 index is first letter
+
+#echo ${s:-1}  sets s to 1 if not set  #echo ${s: -1} from right to left give ony last letter
+#echo ${s:1:-1} omits first and last characters
+
+# "${arr[@]:2}" start array from index 1 "${arr[@]:2:1}"
+
+#"${arr[@]//a/o}"

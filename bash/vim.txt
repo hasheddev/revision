@@ -1,0 +1,15 @@
+j/k   move down/up or arrows to move
+h/l    move left/right or arrows to move
+:wq   to save and quit
+dd delete line
+.     replays last command
+
+dd    then p    to cut and past
+yy  then p    copy then paste
+o  goesn into insert mode and add new line shift + o inserts new line up above
+u   undoes changes
+
+gg == go to first ine
+shift + g == Go to last line
+
+%s/word/replacement/g   (optional g)

@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+#man strftime  for date format
+datefmt='%Y/%m/%d %H:%M:%S'
+#this is not portable
+date +"$datefmt"
+date +%s  #epochtime
+
+printf 'the date is %(%Y/%m/%d %H:%M:%S)T\n'
+printf 'the date is %(%s)T\n' -1  #epoch time
+
+#without -a this would error -1 = current date -2 = date shell is started 0 and above is epotchtime like 10000000 is >1970
+printf 'the date is %(%Y/%m/%d %H:%M:%S)T name=%s\n' -1 dave
+
+echo $SECONDS #number of seconds time shell has been running
+
+echo $EPOCHSECONDS
+echo $EPOCHREALTIME  #with microseconds

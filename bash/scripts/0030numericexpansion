@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+echo {1..20}
+echo {10..5}
+echo {1..100..5}  #skip by 5
+
+seq 1 10
+seq 1 10 50   # 1 to 50 ten steps
+seq 50 -10 1
+
+for i in bar {1..4} baz {5..20..5}; do
+    echo $i
+done
+
+#this does not work  {1..$var} use (()) c style loop

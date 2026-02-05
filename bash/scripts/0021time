@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+#real = how much on wall clock spent to run command from start to finish, user time = time spent in user mode on behalf of the program, sys = time spent in the kernel system mode on behalf of the program
+# real time is greater than other times
+time ls
+
+time sudo whoami #this means time executes sudo which runs whoami
+
+sudo time whoami #this runs usr/bin/time

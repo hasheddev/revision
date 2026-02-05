@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+for thing in foo bar baz bat; do
+    echo "thing is $thing"
+done
+
+for char in {a..f}; do
+    echo "thing is $char"
+done
+
+for num in {1..5}; do
+    echo "nul is $num"
+done
+
+#loops over $1 $2 $3
+for item; do
+    echo "nul is $item"
+done
+
+max=5
+#this breaks for thing in {1..$max}
+
+for (( i =0; i < max; i++)); do
+    echo "c style is $i"
+done

@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+# dave)
+#         echo hi dave
+#         ;&
+# ;& means executr bext case statenebt after a natch regardless of it matching
+#  can fall through multiple times
+# ;;&  goes through every case and runs for only matching ones
+# defaut is to stop after one match
+
+s=$1
+
+case "$s" in
+    dave)
+        echo hi dave
+        ;;
+    buddy)
+        echo here he is
+        ;;
+    guy)
+        echo hi guy
+        ;;
+    *)
+        echo do not know who you are
+        ;;
+esac

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+#printf '\e[3J\e[H\e[2J' clear screen
+
+#save cursor pos jump print hello world restore cursor
+printf '\e7'
+printf '\e[20;20H'
+printf 'hello world'
+printf '\e8'

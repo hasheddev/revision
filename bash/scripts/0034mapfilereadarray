@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+#mapfile array < file.txt  #mapfile -t array < file.txt  -t = trim \n
+#printf '<%s>' "${array[@]}"
+#converts file lines into array values does not trim \n
+#mapfile -t -n 2 array < file.txt   read only two lines
+
+fync() {
+    local line=$1
+    echo "(mapfile) called with line: $line"
+}
+
+#-C = callback  -c 1  call function after one line is read
+
+#mapfile -t -C func -c 1 foo < file.txt
+#readarray -t -C func -c 1 foo < file.txt
+
+#printf '<%s>\n' "${foo[@]}"

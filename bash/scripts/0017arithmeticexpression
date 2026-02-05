@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+thing=$(( 4 ** 4 ))
+echo $thing
+
+(( thing++ ))
+
+echo $thing
+
+(( thing+=4 ))
+echo $thing
+
+a=5
+b=3
+
+(( c = a + b ))
+
+echo $(( a + b ))
+
+echo "c = $c"
+
+#adding string gives zero  converts unparsable values to zero
+a=naee
+b=none
+
+echo $(( a + b ))
+
+# this can fai check return code
+(( 2 + 2 ))
+echo "$?"
+
+#below prints 1 for exit code  like if(0) hence exit code not 0
+#set -e  would exit after this so be careful
+(( 2 - 2 ))
+echo "$?"
+
+a=06
+
+echo $a
+
+echo $(( a ))
+
+#a=08 fails when treated as an octal
+# (( 10#$a ))  force a to be base 10 here $ is a must or it errors

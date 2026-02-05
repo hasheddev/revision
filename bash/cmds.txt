@@ -1,0 +1,99 @@
+rm -i #confirm deletion interactively
+
+GREP
+grep options  term   filepath OR cat file | grep options searchterm
+grep '^term' filepath    single quotes prevents bash from interpreting special characters
+grep -A1 term file.txt  print term and one line after it (number = how many lines to print)
+grep -B1 term file.txt  print term and one line before it
+grep -C1 term file.txt  print term and one line before and after it
+grep -i term file.txt  find case insensitively the given term
+grep -o te file.txt   print only exact text that match (would print only te)
+grep -i name file.txt | grep newterm
+
+LESS = pages
+Key     	Action
+j / k       One line forward / backwards
+Space or f	Page Forward (down)
+b	        Page Backward (up)
+G	        Jump to the End of the file
+g	        Jump to the Beginning of the file
+/pattern	Search forward for a specific term
+?pattern	Search backward for a specific term
+n / N	    Go to the Next or Previous search match
+F	        Follow mode (like tail -f); watches for new data in real-time
+q	        Quit
+
+MAN      shows manual for bin programs
+man man  shows manual for man command
+man section command (section cab be 1 to 9)
+man history
+HELP = bash equivalent for bash this is for bash buitin manuals
+
+WHICH command
+WHICH builtin - shows nothing for bash builtin commands like history
+
+TYPE
+use type to find if a command is builtin or a program
+type -a ls      prints (ls is /bin/ls  ls is aliased to `ls -p ...`)
+type -a echo  == both a built in and a bin program (help echo and man echo)
+
+COMPGEN      list builtins
+compgen  -b
+
+# This forces the shell to use its internal version of echo use full path for binaries
+builtin echo "Hello world"
+
+FILE  tells what type of file
+file path
+
+TR
+tr from to   tr : `\n`  converts column to newline
+tr :b `\na` converts column to newline and b to a
+
+VARIABLES
+foo='hello      world'
+echo $foo      prints   hello world
+echo "$foo"    prints   hello      world
+unset foo   OR foo=      sets to empty
+
+whoami
+uname -a
+thing=`uname -a`   OR thing=$(uname -a)
+
+bash -n file    syntax error checker
+echo $?
+
+help test   help '[['
+help :     null command no effect does nothing always succeeds
+
+cat /noneexists > file   overwrites file even on failure
+
+move fie file3 file3 dir/
+move * folder/  gives error but moves everything movable
+
+SHIFT
+shift  removes script argument at index 0($0), making $2 $1 and othere shifted by one
+  ./script foo bar baz after shift $1 becomes bar $2 baz foo is lost
+
+
+  BASH arguments
+  bash -x script   //debug mode  prints what is is doing
+  can be turned on or off with  set -x set +x to disable inside a script
+  PS4="hello: "   represents debug identifier   + is the default
+
+  bash -n script  //detect syntax error does not execute code but returns error exit code if syntax is invalid
+
+  bash -u   checks for undefined varaibles and prints an error this only works at run time
+  // -nu does not work
+  baz=haha ./script   defines baz as an environment variable for the lifetime of the script execution
+  //this would take precedence over export var=value    unset var
+
+  shellcheck also works instaed of bash -n
+
+  $? referes to exit code of the last executed command
+
+  return can only be used in a subshell or a function
+
+  check for commant if $var == '#'*
+
+  finger username  //not portable get user data

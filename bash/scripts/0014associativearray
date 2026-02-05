@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+#only 15 years old
+declare -A arr
+
+arr[foo]=1
+arr[bar]=2
+arr[baz]=3
+
+echo "${arr[*]}"
+
+echo "${arr[foo]}"
+
+#act on keys
+echo "${!arr[*]}"
+
+for key in "${!arr[@]}"; do
+    echo "key=$key"
+    echo "value=${arr[$key]}"
+done

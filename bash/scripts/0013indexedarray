@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+
+array=(foo bar baz)
+
+# prints ony first element
+echo $array
+
+echo "${array[0]}"
+echo "${array[1]}"
+echo "${array[2]}"
+
+#$var is optional
+echo
+var=1
+echo "$var ${array[var]}"
+
+# index exceeding length prints empty string
+#negative index works
+
+#both print all elements
+echo "*: ${array[*]}"
+echo "@: ${array[@]}"
+
+echo
+echo
+
+#this stringifies array eements into a single string
+for item in "${array[*]}"; do
+    echo "$item"
+done
+
+echo
+echo
+
+#this breaks array into elements  use quotes for expansion to always work
+# or 'hello there me' treats array element as three words
+for item in "${array[@]}"; do
+    echo "$item"
+done
+
+declare -a newarray=(values nen)
+
+#copy an array
+arraycopy=$array  #does not work assigns only first item
+
+validcopy=("${array[@]}" buddy guy) #this expands array 
+#push into array
+validcopy+=(joe star)
+
+#valid array declaration syntax  declare with key
+declare -a copy=([0]="foo" [1]="bar" [2]="baz" [3]="buddy" [4]="guy" [5]="joe" [6]="star" [45]="fortyfive")
+
+#array length
+echo "${#array[@]}"
+
+echo "${#copy[@]}"
+
+#find length of value at index string length
+echo "${#copy[45]}"
+
+var="hello world"
+echo ${#var}
+
+shift
+#shift  removes script argument at index 0($0), making $2 $1 and othere shifted by one
+#  ./script foo bar baz after shift $1 becomes bar $2 baz foo is lost
+
+#repeats format for al args
+printf '%s\n' hello how are you
+
+printf '%s\n' "${arr[@]}"

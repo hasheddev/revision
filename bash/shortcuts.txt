@@ -1,0 +1,38 @@
+cd - #cd into last working directory user was in(previous)
+
+You create a directory: mkdir /home/user/documents/projects/beta
+
+You want to enter that directory: cd !$ (Bash automatically expands this to cd /home/user/documents/projects/beta)
+When you type !$ and hit Enter, Bash first shows you what the command expanded to, then executes it.
+
+The "Last Word" Rule: It only grabs the final argument. If your previous command was cp file1.txt file2.txt, then !$ will be file2.txt.
+
+In Bash, $_ is a special parameter that is very similar to !$, but with a key difference in how and where it works.
+While !$ is a "History Expansion" feature (mostly for interactive typing), $_ is a variable that stores the last argument of the previous command.
+The Key DifferencesFeature
+!$ (History Expansion)$_ (Special Parameter)
+Where it worksInteractive terminal only.Both terminal and inside scripts.
+When it expandsExpands before the command runs.Expands during the command execution.
+ContextBased on your command history.Based on the very last executed entity.
+
+!!   execute last command again
+
+!1234    executes command 1234 in bash history
+
+ctrl + r    searce in reverse in history ctrl + r jumps to next result if current is not what you worksInteractive
+#detect if grep supports option
+
+grep--color=auto < /dev/null &>/dev/null && alias grep='grep--color=auto'
+# & == 2&1 > /dev/null   command > /dev/null 2>&1
+PROMPT_COMMAND runs everytime a command finishes to set title bar
+
+
+MOVE CURSOR using REDLINE SHORTCUTS
+alt key + arrow > or <   move forward or backward one word
+alt + t   swap two words     ctrl + t  swap two letters
+ctrl + w   delete back a word   ctrl + u  delete line
+ctrl + a    move to line start ctrl e   move cursor to end
+
+SET $1 $2 $3
+
+set -- a b c ($1=a $2=b $3=c)
