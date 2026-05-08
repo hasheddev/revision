@@ -1,0 +1,17 @@
+CREATE TABLE persons (
+ id INT NOT NULL,
+ name VARCHAR(50) NOT NULL,
+ birth_date DATE,
+ phone_no VARCHAR(20) NOT NULL,
+ CONSTRAINT pk_persons PRIMARY KEY(id),
+);
+
+SAFE CREATE
+
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'YourTableName')
+BEGIN
+    CREATE TABLE YourTableName (
+        id INT PRIMARY KEY,
+        name VARCHAR(100)
+    );
+END

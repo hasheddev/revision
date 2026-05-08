@@ -1,0 +1,40 @@
+Filters result but only after aggregation with group by. Where filter executes before group by. 
+
+SELECT
+FROM
+WHERE (filters individual rows)
+GROUP BY (groups rows into sets)
+HAVING (filters those grouped sets)
+ORDER BY (sorts the final results)
+LIMIT / OFFSET
+
+
+SELECT country, SUM(score) AS country_total_score, COUNT(id) AS total_customers
+FROM customers
+GROUP BY country
+HAVING country_total_score > 800
+ORDER BY country_total_score;
+
+The above fails because:
+
+Why HAVING fails: The HAVING clause is executed before the SELECT clause. Because the engine hasn't processed the SELECT list yet, it doesn't know what names you've assigned as aliases. To filter, you must repeat the original aggregate expression (e.g., HAVING SUM(sales) > 100).Why ORDER BY works: The ORDER BY clause is executed after SELECT. By this stage, the aliases have been defined and are fully available for the engine to use for sorting. 
+SELECT country, SUM(score) AS country_total_score, COUNT(id) AS total_customers
+FROM customers
+GROUP BY country
+HAVING SUM(score) > 800
+ORDER BY country_total_score;
+
+Germany	850	2
+USA	900	2
+
+Count, Avg execute after the where clause runs
+
+SELECT country, AVG(score) AS country_avg_score, COUNT(id) AS total_customers
+FROM customers
+WHERE score != 0
+GROUP BY country
+HAVING AVG(score) > 430
+ORDER BY country_avg_score;
+
+UK	750	1
+USA	900	1

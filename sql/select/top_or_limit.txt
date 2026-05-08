@@ -1,0 +1,3 @@
+SELECT TOP 3 * FROM Table;  --sql server
+
+SELECT * FROM TABLE LIMIT 3;

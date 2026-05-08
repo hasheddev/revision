@@ -1,0 +1,27 @@
+SELECT
+DISTINCT
+TOP
+FROM
+WHERE (filters individual rows)
+GROUP BY (groups rows into sets)
+HAVING (filters those grouped sets)
+ORDER BY (sorts the final results)
+LIMIT / OFFSET
+
+SELECT DISTINCT TOP 2
+col1, col2
+FROM Table,
+WHERE col = val
+GROUP BY col1
+HAVING SUM(col2) > 30
+ORDER BY col1 ASC;
+
+
+FROM is executed first
+Where executed next
+Group By next
+Having applied
+SELECTS
+Distinct chosen
+Order by
+Limit/Top applied last

@@ -1,0 +1,32 @@
+All columns in SELECT must either be aggregated or included in GROUP BY or the query fails. The code below fails
+
+
+SELECT country, SUM(score) AS country_total_score, first_name
+FROM customers
+GROUP BY country
+ORDER BY country_total_score;
+
+Msg 8120, Level 16, State 1, Line 1
+Column 'customers.first_name' is invalid in the select list because it is not contained in either an aggregate function or the GROUP BY clause.
+
+It works if  written as 
+SELECT country, SUM(score) AS country_total_score, first_name
+FROM customers
+GROUP BY country, first_name
+ORDER BY country_total_score;
+
+GIVING
+USA	0	Peter
+Germany	350	Maria
+Germany	500	Martin
+UK	750	Georg
+USA	900	 John
+
+SELECT country, SUM(score) AS country_total_score, COUNT(id) AS total_customers
+FROM customers
+GROUP BY country
+ORDER BY country_total_score;
+
+UK	750	1
+Germany	850	2
+USA	900	2

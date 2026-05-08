@@ -1,0 +1,17 @@
+ALTER TABLE persons ADD email  VARCHAR(55) NOT NULL UNIQUE;
+
+Adds column to the end
+
+ALTER TABLE persons DROP COLUMN phone_no;
+IF NOT EXISTS (SELECT * FROM sys.columns 
+               WHERE object_id = OBJECT_ID('YourTableName') 
+               AND name = 'NewColumnName')
+BEGIN
+    ALTER TABLE YourTableName ADD NewColumnName INT;
+END
+
+Deletes colmn and it's data
+
+DROP TABLE persons;
+
+Deletes table;
