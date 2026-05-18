@@ -1,0 +1,68 @@
+No Joins:
+
+Select * From Table A;
+Select * From Table B;
+
+Inner Join: Returns only matching rows from both tables.
+Order does not matter here in inner join it results in same result. Used for filtering and recombining date(for big picture)
+
+Select * From customers c
+Inner Join orders o
+ON c.id = o.customer_id
+
+Select c.id, c.first_name, o.order_id, o.sales From customers c
+Inner Join orders o
+ON c.id = o.customer_id
+
+1	Maria	1001	35
+2	 John	1002	15
+3	Georg	1003	20
+
+Left Join: Returns all rows on left table and matching rows on the right or null. left table is the primary source of data and is the priority. The order matters here. The left table is mentioned in the from clause.
+
+Select c.id, c.first_name, o.order_id, o.sales
+From customers AS c
+Left Join orders AS o
+ON c.id = o.customer_id
+
+1	Maria	1001	35
+2	 John	1002	15
+3	Georg	1003	20
+4	Martin	NULL	NULL
+5	Peter	NULL	NULL
+
+SELECT users.name, orders.amount
+FROM users
+LEFT JOIN orders 
+  ON users.id = orders.user_id 
+  AND orders.amount > 100;
+
+What happens: The database looks at all users. When it tries to attach orders, it only attaches orders that are greater than $100.
+
+The Result: You still get every single user in your final output. If a user doesn't have an order greater than $100, they still show up in the list, but their amount column will just say NULL.
+
+Right Join: Returns all rows on right table and matching rows on the left or null. Right table is the primary source of data and is the priority. The order matters here. The left table is mentioned in the from clause.
+
+Select c.id, c.first_name, o.order_id, o.sales
+From customers AS c
+Right Join orders AS o
+ON c.id = o.customer_id
+
+1	Maria	1001	35
+2	 John	1002	15
+3	Georg	1003	20
+NULL	NULL	1004	10
+
+Full Join All rws from both tables returned. Both tables are important.
+
+Select c.id, c.first_name, o.order_id, o.sales
+From customers As c
+Full Join orders As o
+ON c.id = o.customer_id
+
+1	Maria	1001	35
+2	 John	1002	15
+3	Georg	1003	20
+4	Martin	NULL	NULL
+5	Peter	NULL	NULL
+NULL	NULL	1004	10

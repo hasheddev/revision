@@ -2,3 +2,18 @@ INSERT INTO customers (id, first_name, country, score) VALUES (6, 'Anna', 'USA',
 
 Insert multiple
 INSERT INTO customers (id, first_name, country, score) VALUES (6, 'Anna', 'USA', NULL), (7, 'SAM', NULL, 100);
+
+Using Select
+
+INSERT INTO persons (id, name, birth_date, phone_no) SELECT id, first_name, NULL, 'Unknown'
+FROM customers;
+
+SELECT * FROM persons;
+
+1	Maria	NULL	Unknown
+2	 John	NULL	Unknown
+3	Georg	NULL	Unknown
+4	Martin	NULL	Unknown
+5	Peter	NULL	Unknown
+6	Anna	NULL	Unknown
+7	SAM	NULL	Unknown

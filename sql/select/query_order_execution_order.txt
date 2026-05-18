@@ -16,12 +16,11 @@ GROUP BY col1
 HAVING SUM(col2) > 30
 ORDER BY col1 ASC;
 
-
 FROM is executed first
 Where executed next
 Group By next
 Having applied
-SELECTS
+SELECT
 Distinct chosen
 Order by
 Limit/Top applied last

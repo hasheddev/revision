@@ -1,0 +1,9 @@
+COMPARSION OPERATORS:     =, != OR <>, >, <, >=, <=            != might not be recognised by older dbms
+
+LOGICAL OPERATORS:        AND, OR, NOT
+
+RANGE OPERATOR:           BETWEEN
+
+MEMBERSHIP OPERATOR:      IN, NOT IN
+
+SEARCH OPERATOR:          LIKE

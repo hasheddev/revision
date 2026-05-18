@@ -1,0 +1,5 @@
+IN and NOT IN
+
+SELECT * FROM customers WHERE country IN ('Germany', 'USA');
+
+SELECT * FROM customers WHERE country NOT IN ('Germany', 'USA');

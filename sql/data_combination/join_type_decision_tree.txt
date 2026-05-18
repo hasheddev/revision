@@ -1,0 +1,3 @@
+For only matching use Inner join
+For All rows Use Left Join or Outer rows
+Only Unmatching For one side use Left anti join else Use Full Anti join

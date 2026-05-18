@@ -1,0 +1,6 @@
+DELETE FROM customers; OR TRUNCATE table persons; (truncate is faster as it does not log or do other things delete does)
+
+Delete all
+
+DELETE FROM customers
+WHERE id > 5;

@@ -1,0 +1,23 @@
+USE SalesDB;
+
+Using sales Db retrieve a list of all orders, along with the related customer, product and employee detai;s for each order display OrderId, customer's na,e, product name, sales, price, slaes's person's name.
+
+Solution: select from all tables to view the data and see common columns or use entity relation diagram to get the common columns
+
+SELECT o.OrderId, o.Sales, c.FirstName As CustomerFirstName, c.LastName As CustomerLastName, p.Product AS
+ ProductName, p.Price, e.FirstName As EmployeeFirstName, e.LastName As EmployeeLastName
+FROM Sales.Orders As o
+LEFT JOIN Sales.Customers AS c ON c.CustomerID = o.CustomerID
+LEFT JOIN Sales.Products AS p ON o.ProductID = p.ProductID
+LEFT JOIN Sales.Employees AS e ON o.SalesPersonID = e.EmployeeID
+
+1	10	Kevin	Brown	Bottle	10	Mary	NULL
+2	15	Mary	NULL	Tire	15	Mary	NULL
+3	20	Jossef	Goldberg	Bottle	10	Carol	Baker
+4	60	Jossef	Goldberg	Gloves	30	Mary	NULL
+5	25	Kevin	Brown	Caps	25	Carol	Baker
+6	50	Mary	NULL	Caps	25	Carol	Baker
+7	30	Jossef	Goldberg	Tire	15	Frank	Lee
+8	90	Mark	Schwarz	Bottle	10	Mary	NULL
+9	20	Kevin	Brown	Bottle	10	Mary	NULL
+10	60	Mary	NULL	Tire	15	Carol	Baker

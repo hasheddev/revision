@@ -1,0 +1,26 @@
+Set Rules:
+All clauses can be used in every statements (where, join, group by, having) except Orderby which can only be used once at the end of the query
+
+SELECT FirstName, LastName
+FROM Sales.Customers
+UNION
+SELECT FirstName, LastName
+FROM Sales.Employees
+ORDER BY FirstName
+
+1 - Column Count: ALl queries must have the same number of columns.
+2 - Data Types: Corresponding columns must have compatible data types.
+3 - Column Order: The order of columns in each SELECT statement must be identical.
+4 - Ordering Results: If you want to sort the final result, the ORDER BY clause must appear only at the end of the last query.
+
+SELECT user_id, name, NULL AS total_amount FROM users -- 3 columns
+UNION
+SELECT user_id, NULL,  amount              FROM orders -- 3 columns
+
+What "Compatible" means:
+The types don't always have to be identical, but they must be implicitly convertible (compatible). For example, if Column 1 in the top query is an integer (10) and Column 1 in the bottom query is a decimal float (10.5), the database engine is smart enough to coerce the entire final column into a decimal float type so nothing gets truncated. However, it will never try to convert a name string into a date.
+
+Column ordering determines whether we get meaningfull data even if columns have same type
+5 - THE FIRST QUERY DETERMINES DATA TYPES AND RESULT COLUMN NAMES USED BY SQL
+
+EVEN IF ALL RULES ARE MET AND NO ERROR OCCURS RESULT MAY BE INCORRECT. INCORRECT COLUMN LEADS TO INACCURATE RESULTS(COLUMN ORDER RULE) E.G A SELECT HAVING EMAIL, NAME AND ANOTHER FRISTNAME, NAME MAKES NO SENSE.

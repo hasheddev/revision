@@ -1,0 +1,24 @@
+Also Known as Minus operator. It returns all distinct rows from the first query that are not found in the second query.
+
+The order of queries affect the final result. It also removes duplicates. It only returns values from first table.
+
+Find all employees that are not customers at the same time (employee table first for right answer)
+
+SELECT FirstName, LastName
+FROM Sales.Employees
+EXCEPT
+SELECT FirstName, LastName
+FROM Sales.Customers;
+
+Carol	Baker
+Frank	Lee
+Michael	Ray
+
+SELECT FirstName, LastName
+FROM Sales.Employees;
+
+Frank	Lee
+Kevin	Brown
+Mary	NULL
+Michael	Ray
+Carol	Baker

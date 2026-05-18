@@ -1,0 +1,18 @@
+LIKE
+
+% == anything, 0 or more characters
+_  ==   Exactly 1 character
+
+M%  == anything starting with M  (Maria, multiple, mmm, M)
+
+%in = last two characters must be in (Martin, vin, in)
+
+%r%  r anywhere    (Maria, Ray, R, Peter, Ryan)
+
+__b%   two characters before b and then anyting (Albert, Rob, Robert)
+
+SELECT * FROM customers WHERE first_name LIKE 'M%';
+
+SELECT * FROM customers WHERE first_name LIKE '%n';
+
+SELECT * FROM customers WHERE first_name LIKE '__r%';

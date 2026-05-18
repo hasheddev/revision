@@ -1,0 +1,15 @@
+Comparison:
+   Expression - operator - Expression
+
+first_name = last_name  (col1 = col2)
+firstname= 'John'  (col = value)
+UPPER(first_name) = 'JOHN'  (FUNC(col) = value)
+price * quentity = 1000    (Expression = value)
+(SELECT AVG(sales) FROM orders) = 1000  (subquery = value)
+
+SELECT * FROM customers WHERE country = 'GERMANY';
+SELECT * FROM customers WHERE country != (<>) 'GERMANY';
+SELECT * FROM customers WHERE score > 500;
+SELECT * FROM customers WHERE score >= 500;
+SELECT * FROM customers WHERE score < 500;
+SELECT * FROM customers WHERE score <= 500;

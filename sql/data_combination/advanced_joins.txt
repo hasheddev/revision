@@ -1,0 +1,65 @@
+Where clause filters joined rows i.e removes rows from join result that do not match the where condition after the join.
+
+Left Anti Join: Returns row from left that has no match in Right table. Used to check existence of a row
+
+SELECT c.id, c.first_name, o.order_id, o.sales
+FROM customers AS c
+LEFT JOIN orders AS o
+ON c.id = o.customer_id
+WHERE o.customer_id IS NULL
+
+4	Martin	NULL	NULL
+5	Peter	NULL	NULL
+
+Right Anti Join: Returns row from Right that has no match in Letf table. Used to check existence of a row
+
+SELECT c.id, c.first_name, o.order_id, o.sales
+FROM customers AS c
+RIGHT JOIN orders AS o
+ON c.id = o.customer_id
+WHERE c.id IS NULL
+
+NULL	NULL	1004	10
+
+Full Anti Join: Returns data from both tale that have no match in opposite table
+
+Select c.id, c.first_name, o.order_id, o.sales
+From customers AS c
+FULL OUTER JOIN orders AS o
+ON c.id = o.customer_id
+WHERE c.id IS NULL OR o.customer_id IS NULL
+
+4	Martin	NULL	NULL
+5	Peter	NULL	NULL
+NULL	NULL	1004	10
+
+Cross Join: Combines every row in the left with every row in the right giving all possible combinations (Cartesian join) = row left * row right  number of result
+
+Select *
+From customers
+CROSS JOIN order
+
+-- Generate all possible combination of orders and customers
+
+1	Maria	Germany	350	1001	1	2021-01-11	35
+2	 John	USA	900	1001	1	2021-01-11	35
+3	Georg	UK	750	1001	1	2021-01-11	35
+4	Martin	Germany	500	1001	1	2021-01-11	35
+5	Peter	USA	0	1001	1	2021-01-11	35
+1	Maria	Germany	350	1002	2	2021-04-05	15
+2	 John	USA	900	1002	2	2021-04-05	15
+3	Georg	UK	750	1002	2	2021-04-05	15
+4	Martin	Germany	500	1002	2	2021-04-05	15
+5	Peter	USA	0	1002	2	2021-04-05	15
+1	Maria	Germany	350	1003	3	2021-06-18	20
+2	 John	USA	900	1003	3	2021-06-18	20
+3	Georg	UK	750	1003	3	2021-06-18	20
+4	Martin	Germany	500	1003	3	2021-06-18	20
+5	Peter	USA	0	1003	3	2021-06-18	20
+1	Maria	Germany	350	1004	6	2021-08-31	10
+2	 John	USA	900	1004	6	2021-08-31	10
+3	Georg	UK	750	1004	6	2021-08-31	10
+4	Martin	Germany	500	1004	6	2021-08-31	10
+5	Peter	USA	0	1004	6	2021-08-31	10
+
+

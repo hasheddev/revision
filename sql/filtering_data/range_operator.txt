@@ -1,0 +1,5 @@
+BETWEEN checks if a value falls within a range (upper and lower)
+
+SELECT * FROM customers WHERE score BETWEEN 100 AND 500;
+
+Answer include 100 and 500 and everything between

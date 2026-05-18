@@ -1,0 +1,18 @@
+This returns all distinct rows from both queries. It removes duplicates
+
+SELECT FirstName, LastName
+FROM Sales.Customers
+UNION
+SELECT FirstName, LastName
+FROM Sales.Employees;
+
+Anna	Adams
+Carol	Baker
+Frank	Lee
+Jossef	Goldberg
+Kevin	Brown
+Mark	Schwarz
+Mary	NULL
+Michael	Ray
+
+--Combine the data from employees and customers into one table excluding duplicates.

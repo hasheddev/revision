@@ -1,0 +1,12 @@
+Tables can be combined in two ways:
+  Using Set operators
+  Joins
+
+Joins combines columns of two or more tabes
+Set operators combines two tables with same columns stacking them on top of each other combning rows.
+
+Joins have basic types: Inner, Full, Left, Right and more.
+
+Set have Union, Union All, Except and Intercept.
+
+For joins we need key columns(common to the tables) for it to work while for Set We need the tables to have same columns.

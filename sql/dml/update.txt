@@ -1,0 +1,13 @@
+No where clause updates whole table
+
+COMPARE NULL WITH IS NULL
+
+UPDATE customers
+SET score = 0
+WHERE score IS NULL;
+
+SELECT * from customers;
+
+UPDATE customers
+SET score = 0, country = 'UK'
+WHERE id = 10;

@@ -1,0 +1,10 @@
+Joins are used to combine data about an object to get a bigger picture about this object like customers, addresses, orders and reviews.
+They are used for Data enrichment to get extra data about an entity
+
+And also for checking existence of a record.
+
+Joins result in three scenarios: Matching data from both tables, All Data From one table and some from the other and Only unmatching data from one table Only(Data present in one but not the other)
+
+Types:
+  Basic: Inner join, Left Join, Right Join, Full Outer Join.
+  Advanced:  Left Anti Join, Right Anti Join, Full Anti Join and Cross Join
