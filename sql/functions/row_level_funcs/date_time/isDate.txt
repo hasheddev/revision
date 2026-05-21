@@ -1,0 +1,48 @@
+Checks if a value is date
+returns 1 if a string value is date else 0
+
+ISDATE(2025-08-20)
+ISDATE(2025)
+
+SELECT ISDATE(2025) Isdate2025;
+1
+
+SELECT ISDATE('2025-08')
+0
+
+SELECT ISDATE('123'),
+ISDATE('20-08-2025'),
+ISDATE('2025'),
+ISDATE(5)
+0	0	1	0
+
+The query below fails because of an invalid value
+
+SELECT
+   CAST(Orderdate AS DATE)
+FROM
+(
+   SELECT '2025-08-20' AS OrderDate UNION
+   SELECT '2025-08-21' UNION
+   SELECT '2025-08-23' UNION
+   SELECT '2025-08'
+)
+
+SELECT
+   OrderDate,
+   ISDATE(OrderDate),
+   CASE WHEN ISDATE(OrderDate) = 1
+   THEN
+       CAST(OrderDate AS DATE) END NewOrderDate
+FROM
+(
+   SELECT '2025-08-20' AS OrderDate UNION
+   SELECT '2025-08-21' UNION
+   SELECT '2025-08-23' UNION
+   SELECT '2025-08'
+   )t
+
+2025-08	0	NULL
+2025-08-20	1	2025-08-20
+2025-08-21	1	2025-08-21
+2025-08-23	1	2025-08-23

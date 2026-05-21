@@ -1,0 +1,23 @@
+Removes leading and trailing spaces in a value cleansing data.
+
+TRIM('  John') = John
+TRIM('  John   ') = John
+TRIM('John   ') = John
+
+find customers whose first name contains leading or trailing spaces
+
+SELECT *
+FROM customers
+WHERE first_name != TRIM(first_name)
+
+2	 John	USA	900
+
+SELECT *, LEN(first_name) - LEN(TRIM(first_name))AS length_difference,
+ LEN(first_name) AS lenght
+FROM customers
+
+1	Maria	Germany	350	0	5
+2	 John	USA	900	1	5
+3	Georg	UK	750	0	5
+4	Martin	Germany	500	0	6
+5	Peter	USA	0	0	5

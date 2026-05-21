@@ -1,0 +1,20 @@
+Left: Extracts specific number of characters from the start
+Right: Extracts specific number of characters from the end
+
+SELECT first_name, LEFT(first_name, 2) AS name_extract_left
+FROM customers;
+
+SELECT first_name, RIGHT(first_name, 2) AS name_extract_right
+FROM customers;
+
+Maria	Ma
+ John	 J
+Georg	Ge
+Martin	Ma
+Peter	Pe
+
+Maria	ia
+ John	hn
+Georg	rg
+Martin	in
+Peter	er

@@ -1,0 +1,17 @@
+Counts number of characters in a value
+
+for string and numbers and also 2026-01-23(date)
+
+SELECT first_name, LEN(first_name) AS len_name
+FROM customers;
+
+Maria	5
+ John	5
+Georg	5
+Martin	6
+Peter	5
+
+LEN ignores triling space in count
+
+SELECT LEN(' DAVE S ') AS Test;
+Gives 7 instead of 8

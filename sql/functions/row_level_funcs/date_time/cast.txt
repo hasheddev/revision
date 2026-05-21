@@ -1,0 +1,20 @@
+CAST(value AS data_type)
+
+CAST(123, AS INT)
+
+No format can be specified with cast
+
+
+SELECT CAST('2025-08-20' AS DATETIME)
+SELECT CAST('2025-08-20' AS DATETIME2)
+
+2025-08-20 00:00:00.000
+
+2025-08-20 00:00:00.0000000
+
+CAST can convert anytype to any type
+
+CONVERT can also convert anytype to any type and date, datetime formats
+FORMAT can cast anytype to only string and the format ofnumers, date, time
+
+Any type mean any compatible data types

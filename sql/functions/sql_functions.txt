@@ -1,0 +1,21 @@
+Sql Functions are used when we want to change data value by manipulation, analyze date, clean data or transform data.
+
+They are built in code blocks that accepts input value, processes it and returns an output value
+
+Are grouped as Single row values that take in one args and return one value e.g LOWER(Maria) = maria, multi row function that works on multiple rows like SUM(column name) = total sum
+
+Functions can be nested together e.g
+
+Maria  -> Left(2) -> Ma -> LOWER() -> ma
+
+LOWER(LEFT('Maria', 2))
+
+Multirow functions are used for aggregations.
+
+Single row functions can be subdivided into: String functions, Numeric functions, Date & time Functions Null functions.
+
+Muiltirow functions: Simple aggregate functions(basic) and Window Functions(Advanced)
+
+The single row function is used to prepare the data for Multirow functions
+
+Single row functions are also called row level functions while multi row functions are called Aggregation & Analytical functions

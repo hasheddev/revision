@@ -1,0 +1,9 @@
+ROUND
+
+SELECT ROUND(3.516, 2) AS two_dep;
+
+SELECT ROUND(3.516, 1) AS one_dep;
+
+SELECT ROUND(3.516, 0) AS zero_dep;
+
+Gives 3.520, 3.500 and 4.000

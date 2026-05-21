@@ -1,0 +1,19 @@
+CONVERT(data_type, value [, style])
+
+CONVERT(INT, 123)
+CONVERT(VARCHAR, OrderDate, 34)  Default sytle = 0  36 not valid for date to varcahar
+
+SELECT CONVERT(INT, '123') AS [String to Int Convert]
+123
+
+SELECT CONVERT(DATE, DATETIME)
+
+SELECT
+CONVERT(VARCHAR, CreationTime, 32) As USA_std_style32
+FROM Sales.Orders
+
+01-01-2025
+
+CONVERT Can cast and format
+
+Convert has styles only for date, only for time and only for Datetime

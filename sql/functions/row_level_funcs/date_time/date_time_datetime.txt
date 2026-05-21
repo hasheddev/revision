@@ -1,0 +1,37 @@
+A date is represented by yyyy--mm--dd
+
+mm = 1 - 12
+day = 1 - 31
+
+Time = hh--mm--ss
+
+hour = 0-23
+minute = 0-69
+seconds: 0-59
+
+Datetime(sql server)/TimeStamp(oracle, mysql, postgress)
+   yyyy--mm--dd--hh--mm--ss
+
+We have 3 different sources for them
+1- Table
+
+USE SalesDB;
+
+SELECT OrderID, OrderDate, ShipDate, CreationTime
+FROM Sales.Orders
+
+10	2025-03-15	2025-03-20	2025-03-16 23:25:15.0000000
+
+2- hardcoded date
+SELECT '2025-08-20' CreationTime
+FROM Sales.Orders;
+
+2025-08-20	2025-03-16 23:25:15.0000000
+
+3- GetDate function return current date and time at moment of excution
+
+SELECT '2025-08-20', CreationTime, GETDATE() TODAY
+FROM Sales.Orders;
+
+2025-08-20	2025-03-16 23:25:15.0000000	2026-05-19 21:05:37.070
+

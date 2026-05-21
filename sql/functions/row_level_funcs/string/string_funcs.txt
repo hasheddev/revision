@@ -1,0 +1,7 @@
+Used for Manipulation, Calculation and String Extraction
+
+Manipulation: Concat, Upper, Lower, Trim, Replace
+
+Calculation: Len
+
+Extraction: Left, Right, Substring

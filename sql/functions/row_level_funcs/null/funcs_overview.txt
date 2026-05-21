@@ -1,0 +1,31 @@
+Optional fields if not give have NULL, it means nothing, unkown, not equal to anything
+
+Remove null using COALESCE and ISNULL
+
+Replace value with null using NULLIF
+
+Check if value is null using IS NULL | IS NOT NULL
+
+NULL IS NULL = true      NULL IS NOT NULL = false
+
+ISNULL, COALESCE - These functions are used to ensure correct aggregation values as functions like SUM, AVG and others other than COUNT ignore null value so n a three roe table AVG will be / 2 and not 3
+
+If null is included we get NULL as the result of the function call  replacing NULL with a default makes the function use / 3 for avg
+
+   SELECT Score,
+   AVG(Score) Over () AvgScores,
+   AVG(COALESCE(Score, 0)) Over () AvgScores2
+   FROM Sales.Customers
+
+350	625	500
+900	625	500
+750	625	500
+500	625	500
+NULL	625	500
+
+They are also used for mathematical operations
+ 1 + 5 = 6
+'A' + 'B' = 'AB'
+1 + NULL = NULL
+
+To avoid null we use the ISNULL and COALESCE

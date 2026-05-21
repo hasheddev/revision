@@ -1,0 +1,59 @@
+FORMAT: FORMAT(value, format, [,culture])
+
+value can be date or number, format = new format for value, culture = exmaple value in stle of specific country or region(optional)
+
+SELECT FORMAT(1234.56, 'C', 'fr-FR');  France separes thounsands using space and comma for decimals
+
+C = currency   1 234,56 €
+
+SELECT OrderId, CreationTime,
+FORMAT(CreationTime, 'dd') dd,
+FORMAT(CreationTime, 'ddd') ddd,
+FORMAT(CreationTime, 'dddd') dddd,
+FORMAT(CreationTime, 'MM') MM,
+FORMAT(CreationTime, 'MMM') MMM,
+FORMAT(CreationTime, 'MMMM') MMMM
+FROM Sales.Orders
+
+7	2025-02-16 06:22:01.0000000	16	Sun	Sunday	02	Feb	February
+8	2025-02-18 10:45:22.0000000	18	Tue	Tuesday	02	Feb	February
+9	2025-03-10 12:59:04.0000000	10	Mon	Monday	03	Mar	March
+
+SELECT OrderId, CreationTime,
+FORMAT(CreationTime, 'MM-dd-yyyy') USA_Format,
+FORMAT(CreationTime, 'dd-MM-yyyy') EURO_Format
+FROM Sales.Orders
+
+6	2025-02-06 15:34:57.0000000	02-06-2025	06-02-2025
+7	2025-02-16 06:22:01.0000000	02-16-2025	16-02-2025
+8	2025-02-18 10:45:22.0000000	02-18-2025	18-02-2025
+
+Show creationtime in following format Day Wed Jan Q1 2025 12:34:56 PM
+
+HH = 24 hours format
+
+SELECT OrderId, CreationTime,
+'DAY ' + FORMAT(CreationTime, 'ddd MMM') +
+' Q' + DATENAME(quarter, CreationTime) + ' ' +
+FORMAT(CreationTime, 'yyyy hh:mm:ss tt') AS CustomFormat
+FROM Sales.Orders
+
+2025-02-06 15:34:57.0000000	DAY Thu Feb Q1 2025 03:34:57 PM
+2025-02-16 06:22:01.0000000	DAY Sun Feb Q1 2025 06:22:01 AM
+2025-02-18 10:45:22.0000000	DAY Tue Feb Q1 2025 10:45:22 AM
+
+SELECT OrderId, CreationTime,
+FORMAT(CreationTime, 'yy') yy,
+FORMAT(CreationTime, 'yyy') yyy,
+FORMAT(CreationTime, 'yyyy') yyyy
+FROM Sales.Orders
+
+2025-03-16 23:25:15.0000000	25	2025	2025
+
+MMM yy  === Jan 15
+
+For number we have
+
+N = numeric default,   P = percentage,   C = currency,  E scientific notation    F = fixed point, N0Numeric no decimals
+N1 Numeric one decima, N2 = Numeric two decimals
+N, de_DENumeric German (12345.6, 'N', ''de-DE)

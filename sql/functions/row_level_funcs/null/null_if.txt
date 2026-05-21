@@ -1,0 +1,29 @@
+NULLIF(val, val)
+
+NULLIF(shipping, 'unkown')
+
+Return Null if the two inputs are equal else return first value
+
+NULLIF(price, -1)
+
+return price id is is not -1 else return NULL
+
+It can be used to avoid zero division error
+
+SELECT 
+    TotalSales,
+    TotalOrders,
+    -- If TotalOrders is 0, NULLIF turns it to NULL. 
+    -- TotalSales / NULL results in NULL.
+    TotalSales / NULLIF(TotalOrders, 0) AS AvgOrderValue
+FROM Sales.Orders;
+
+This avoids crashing query
+
+OR
+
+SELECT 
+    TotalSales,
+    TotalOrders,
+    COALESCE(TotalSales / NULLIF(TotalOrders, 0), TotalSales) AS AvgOrderValue
+FROM Sales.Orders;

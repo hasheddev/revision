@@ -1,0 +1,17 @@
+Upper: converts all characters touppercase
+Lower converts all characters to lowercase
+
+Maria, maria, MARIA
+
+UPPER(Maria) = MARIA, UPPER(MARIA) = MARIA, UPPER(maria) = MARIA
+LOWER(Maria) = maria, LOWER(MARIA) = maria, LOWER(maria) = maria
+Convert first name to lower case
+
+SELECT first_name, country, CONCAT(first_name, ' ', country, NULL) AS name_country, LOWER(first_name) AS lower_name, UPPER(country) as upper_country
+FROM customers;
+
+Maria	Germany	Maria Germany	maria	GERMANY
+ John	USA	 John USA	 john	USA
+Georg	UK	Georg UK	georg	UK
+Martin	Germany	Martin Germany	martin	GERMANY
+Peter	USA	Peter USA	peter	USA

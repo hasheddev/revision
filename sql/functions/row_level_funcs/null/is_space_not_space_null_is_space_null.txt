@@ -1,0 +1,10 @@
+Return true or false
+
+If value IS NULL or IS NOT NULL
+
+SELECT * FROM table WHERE score IS NULL
+
+SELECT * FROM table WHERE score IS NOT NULL
+
+Used in JOINS to create the effect of left anti joins
+USING WHERE righh table.key IS NULL, Same for Right Join and Full anti join

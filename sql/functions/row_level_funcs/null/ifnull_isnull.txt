@@ -1,0 +1,55 @@
+Replaces null values with specified values which can also be null. Is called IFNULL in mysql
+
+ISNULL(value, replacement_value)
+
+ISNULL(shipping_address, 'unkown')
+
+ISNULL(shipping_address, billing_address)
+
+USE CASES
+- Arithmetic operations to avoid returning Null if one of the operands is null
+
+SELECT CustomerID,
+FirstName,
+LastName,
+FirstName + ' ' + LastName AS FullNAME
+FROM Sales.Customers
+
+1	Jossef	Goldberg	Jossef Goldberg
+2	Kevin	Brown	Kevin Brown
+3	Mary	NULL	NULL
+4	Mark	Schwarz	Mark Schwarz
+5	Anna	Adams	Anna Adams
+
+SELECT CustomerID,
+FirstName,
+LastName,
+ISNULL(FirstName, '') + ' ' + ISNULL(LastName, '') AS FullNAME
+FROM Sales.Customers
+
+1	Jossef	Goldberg	Jossef Goldberg
+2	Kevin	Brown	Kevin Brown
+3	Mary	NULL	Mary 
+4	Mark	Schwarz	Mark Schwarz
+5	Anna	Adams	Anna Adams
+
+- The are also used to clean joins. In case join key is null sql does not return values whose keys are say NULL = NULL when both are null.
+
+SO we do
+SELECT a.year, a.type, a.orders, b.sales
+From table1 a
+JOIN table2 b
+ON a.year = b.year
+AND ISNULL(a.type, '') = ISNULL(b.type, '')
+
+- Sorting
+SQL returns NULL first when sorting with ASC so Isnull and Coalesce are used to handle this when using DESC NULL appears last
+
+To sort with NULL appearing last whem using ASC we can replace NULL with very big number like Coalesce(score, 999999999).
+But we might get a bigger number than this so we do
+
+SELECT CustomerId, Score
+CASE WHEN Score IS NULL THEN 1 ELSE 0 END FLAG
+Score,
+FROM Sales.Customer
+ORDER BY CASE WHEN Score IS NULL THEN 1 ELSE 0 END FLAG, Score

@@ -1,0 +1,116 @@
+SELECT DAY('2023-07-28');  28
+
+SELECT MONTH('2023-07-28');  7
+
+SELECT YEAR('2023-07-28'); 2023
+
+SELECT CreationTime, YEAR(CreationTime) AS Year, Month(CreationTime) Month, DAY(CreationTime) Day
+FROM Sales.Orders;
+
+2025-03-16 23:25:15.0000000	2025	3	16
+
+
+Datepart returns specific part of date as number
+Datepart and the above functions return Int types
+DATEPART(month, date)|DATEPART(mm, date), DATEPART(quater, date)
+
+SELECT CreationTime, DATEPART(year, CreationTime) AS Year, DATEPART(month, CreationTime) Month, DATEPART(day, CreationTime) Day,
+DATEPART(hour, CreationTime) Hour, DATEPART(quarter, CreationTime) Quarter,
+DATEPART(weekday, CreationTime) Weekday, DATEPART(week, CreationTime) Week
+FROM Sales.Orders;
+
+2025-02-18 10:45:22.0000000	2025	2	18	10	1	3	8
+2025-03-10 12:59:04.0000000	2025	3	10	12	1	2	11
+2025-03-16 23:25:15.0000000	2025	3	16	23	1	1	12
+
+Datename returns name of datepart
+instead of int return string e.g August instaed of 8 and if number is returned it is returned as string
+
+SELECT CreationTime, DATENAME(year, CreationTime) AS Year, DATENAME(month, CreationTime) Month, DATENAME(day, CreationTime) Day,
+DATENAME(hour, CreationTime) Hour, DATENAME(quarter, CreationTime) Quarter,
+DATENAME(weekday, CreationTime) Weekday, DATENAME(week, CreationTime) Week
+FROM Sales.Orders;
+
+2025-02-18 10:45:22.0000000	2025	February	18	10	1	Tuesday	8
+2025-03-10 12:59:04.0000000	2025	March	10	12	1	Monday	11
+2025-03-16 23:25:15.0000000	2025	March	16	23	1	Sunday	12
+
+Datetrunc truncates date to specific parts
+
+DATETRUNC(part, date)
+month and day are reset to 01 while hor, minute and seconds are reset to 00
+It selects upto specified part and resets the rest to the above values
+
+SELECT CreationTime, DATETRUNC(minute, CreationTime) AS no_seconds,  DATETRUNC(hour, CreationTime) AS no_minutes,  DATETRUNC(day, CreationTime) AS no_time,
+DATETRUNC(month, CreationTime) AS no_day, DATETRUNC(year, CreationTime) AS no_month
+FROM Sales.Orders;
+
+2025-02-18 10:45:22.0000000	2025-02-18 10:45:00.0000000	2025-02-18 10:00:00.0000000	2025-02-18 00:00:00.0000000	2025-02-01 00:00:00.0000000	2025-01-01 00:00:00.0000000
+2025-03-10 12:59:04.0000000	2025-03-10 12:59:00.0000000	2025-03-10 12:00:00.0000000	2025-03-10 00:00:00.0000000	2025-03-01 00:00:00.0000000	2025-01-01 00:00:00.0000000
+2025-03-16 23:25:15.0000000	2025-03-16 23:25:00.0000000	2025-03-16 23:00:00.0000000	2025-03-16 00:00:00.0000000	2025-03-01 00:00:00.0000000	2025-01-01 00:00:00.0000000
+
+SELECT DATETRUNC(month, CreationTime) Creation, COUNT(*)
+FROm Sales.Orders
+GROUP BY DATETRUNC(month, CreationTime);
+
+2025-01-01 00:00:00.0000000	4
+2025-02-01 00:00:00.0000000	4
+2025-03-01 00:00:00.0000000	2
+
+Eomonth changes Day to last day of month, if day is already last day we get same value
+
+EOMONTH(date)
+
+SELECT CreationTime, EOMONTH(CreationTime) Eom
+FROM Sales.Orders;
+
+2025-02-16 06:22:01.0000000	2025-02-28
+2025-02-18 10:45:22.0000000	2025-02-28
+2025-03-10 12:59:04.0000000	2025-03-31
+2025-03-16 23:25:15.0000000	2025-03-31
+
+To get first day of month use DateTrunc(month)
+
+How many order were place in a month, year
+
+SELECT MONTH(OrderDate) MonthNumber, COUNT(*) NoOrders
+FROM Sales.Orders
+GROUP BY MONTH(OrderDate);
+
+1	4
+2	4
+3	2
+
+
+SELECT DATENAME(month, OrderDate) MonthNumber, COUNT(*) NoOrders
+FROM Sales.Orders
+GROUP BY DATENAME(month, OrderDate);
+
+February	4
+January	4
+March	2
+
+
+SELECT YEAR(CreationTime) Year, COUNT(*) NoOrders
+FROM Sales.Orders
+GROUP BY YEAR(CreationTime);
+
+2025	10
+
+Show all orders placed in february
+
+SELECT *
+FROM Sales.Orders
+WHERE MONTH(OrderDate) = 2;
+
+5	104	2	5	2025-02-01	2025-02-05	Delivered	NULL	NULL	1	25	2025-02-01 14:02:41.0000000
+6	104	3	5	2025-02-05	2025-02-10	Delivered	1792 Belmont Rd.	NULL	2	50	2025-02-06 15:34:57.0000000
+7	102	1	1	2025-02-15	2025-02-27	Delivered	136 Balboa Court		2	30	2025-02-16 06:22:01.0000000
+8	101	4	3	2025-02-18	2025-02-27	Shipped	2947 Vine Lane	4311 Clay Rd	3	90	2025-02-18 10:45:22.0000000
+
+Do not search for string if number use is possible avoid DATENAME in the above query as Int is faster than String for comparison
+
+DatePart, Month, Year, Day return Int type
+DateName returns String
+DateTrunc Retruns Datetime
+EOMONTH returns Date

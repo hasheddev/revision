@@ -1,0 +1,16 @@
+We can extract month, day and year from date
+We can change date format
+
+We can add or subtract date for calculation
+
+We can also validate if a date is valid
+
+There are 4 categories
+
+Part Extraction: Day, Month, Year, Datepart, Datename, Datetrunc, Eomonth
+
+Format & Casting: Format, Convert and Cast
+
+Calculations: Dateadd, Datediff
+
+Validation: Isdate

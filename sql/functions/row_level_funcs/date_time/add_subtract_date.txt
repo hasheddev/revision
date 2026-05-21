@@ -1,0 +1,67 @@
+DATEADD: add or subtract a specific time interval to date, months, days and years, it can also subtract if negative number is used
+
+DATEADD(part, interval, date)
+
+part = months, date, year
+interval = amount of part to add
+
+date =date to manipulate
+
+DATEADD(year, 2, OrderDate)
+DATEADD(month, -2, OrderDate)
+DATEADD(day, -10, OrderDate)
+
+SELECT CreationTime,
+DATEADD(year, 2, CreationTime) As year_added,
+DATEADD(month, -2, CreationTime) As months_prior
+FROM Sales.Orders
+
+2025-02-18 10:45:22.0000000	2027-02-18 10:45:22.0000000	2024-12-18 10:45:22.0000000
+2025-03-10 12:59:04.0000000	2027-03-10 12:59:04.0000000	2025-01-10 12:59:04.0000000
+2025-03-16 23:25:15.0000000	2027-03-16 23:25:15.0000000	2025-01-16 23:25:15.0000000
+
+Date diff finc difference between two dates
+
+DATEDIFF(part, start_date, end_date)
+
+Result = enddate - startdate   can be negative
+
+Calculate age of employees
+
+SELECT EmployeeID, BirthDate,
+DATEDIFF(year, BirthDate, GETDATE()) AS Age
+FROM Sales.Employees
+
+1	1988-12-05	38
+2	1972-11-25	54
+3	1986-01-05	40
+4	1977-02-10	49
+5	1982-02-11	44
+
+Find average shipping duration in days for each month
+SELECT MONTH(OrderDate) AS ShipMonth,
+AVG(DATEDIFF(day, orderDate, shipDate)) AveShipDayPerMonth
+FROM Sales.Orders
+GROUP BY MONTH(OrderDate)
+
+1	7
+2	7
+3	5
+
+Find the number of days between each order and the previous order
+
+SELECT OrderDate AS CurrenOrderDate,
+LAG(OrderDate) OVER (ORDER BY OrderDate) as PreviousOrderdate,
+DATEDIFF(day, LAG(OrderDate) OVER (ORDER BY OrderDate), orderDate) NrOfDays
+FROM Sales.Orders
+
+2025-01-01	NULL	NULL
+2025-01-05	2025-01-01	4
+2025-01-10	2025-01-05	5
+2025-01-20	2025-01-10	10
+2025-02-01	2025-01-20	12
+2025-02-05	2025-02-01	4
+2025-02-15	2025-02-05	10
+2025-02-18	2025-02-15	3
+2025-03-10	2025-02-18	20
+2025-03-15	2025-03-10	5

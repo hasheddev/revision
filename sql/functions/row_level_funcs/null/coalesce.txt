@@ -1,0 +1,14 @@
+RETURNS first nun null value from a list if any or last value in list.
+
+COALESCE(val, val, val, val)
+
+COALESCE(shipping_address, 'unkown');
+
+COALESCE(shipping_address, bolling_addresss);
+
+COALESCE(shipping_address, bolling_addresss, 'unkown');
+
+SELECT COALESCE(MobilePhone, HomePhone, WorkPhone) AS ContactNumber
+FROM Sales.Customers;
+
+If a specific customer has completely refused to provide any phone numbers at all, all three columns will contain NULL. COALESCE checks all three, finds nothing but NULLs, and returns NULL.

@@ -1,0 +1,21 @@
+Date format is the representation of date time components using specifiers like yyyy specifiers for year
+
+yyyy-MM-dd   HH:mm:ss
+The above is the date and time format
+
+We have other standards other than the International Standard(Iso) format above
+
+Usa standard = MM-dd-yyyy
+
+European standard = dd-MM-yyyy
+
+Formatting: changing the format of a value from one to another changing how data looks.
+
+Sql uses ISO format we can format or dates to look like:
+MM/dd/yy: 08/20/25,     MMM yyyy: Aug 2025 (FORMAT function)
+
+CONVERT: takes a style number like 6 giving 20 Aug 25, 112 20250820
+
+FORMAT can also style a number as currency or percentage
+
+Casting: changes data type to another e.g '123' to 123, date to strin to 123, date to string. We use the CAST or CONVERT functions to do this

@@ -1,0 +1,21 @@
+Extracts a part of a string at a specified position
+
+SUBSTRING(value, start, length)
+
+start = starting position
+length = length od charaters to extract
+
+SUBSTRING(Maria, 2, 2) = ar  (not zero indexed)
+
+SUBSTRING(Maria, 2, LEN(Maria))
+
+USE MyDatabase;
+
+SELECT first_name, SUBSTRING(first_name, 2, LEN(first_name)) AS name_extract_substring
+FROM customers;
+
+Maria	aria
+ John	John
+Georg	eorg
+Martin	artin
+Peter	eter

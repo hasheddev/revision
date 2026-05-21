@@ -1,0 +1,12 @@
+NULL = value unkown
+' ' = known value is space of size number of space entered
+'' = known value it is empty of zero size (zero characters)
+
+NULL has no data type it is a special marker
+'' is a string
+' ' is a string
+NULL has the best performance faster than '' which is also faster that ' '
+NULL takes minimal space while '' and ' ' occupy some memory
+
+Comparison IS NULL for null
+= for '' and ' '

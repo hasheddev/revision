@@ -1,0 +1,21 @@
+Replaces specific character with a new character
+
+123-456-789
+
+replace '-' with '/'
+
+REPLACE(123-456-789, '-', '/')
+
+or remove -
+REPLACE(123-456-789, '-', '')
+
+SELECT '123-456-789' AS num_with_dashes,
+REPLACE('123-456-789', '-', '') As num_without_dashes;
+
+SELECT '123-456-789' AS num_with_dashes,
+REPLACE('123-456-789', '-', '/') AS num_with_slashes;
+
+123-456-789	123456789
+123-456-789	123/456/789
+
+SELECT 'report.txt' AS old_file_name, REPLACE('report.txt', '.txt', '.csv') AS new_file_name
