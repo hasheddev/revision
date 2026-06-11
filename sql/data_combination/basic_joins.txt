@@ -53,7 +53,7 @@ ON c.id = o.customer_id
 3	Georg	1003	20
 NULL	NULL	1004	10
 
-Full Join All rws from both tables returned. Both tables are important.
+Full Join All rows from both tables returned. Both tables are important.
 
 Select c.id, c.first_name, o.order_id, o.sales
 From customers As c

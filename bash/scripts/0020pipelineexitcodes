@@ -7,7 +7,7 @@ echo "${PIPESTATUS[*]}"
 true | false | true | false
 echo "${PIPESTATUS[*]}"
 
-#() = subshell
+#() = subshell  does not affect current shell
 (exit 4) | (exit 7) | (exit 100) | (exit 0)
 echo "${PIPESTATUS[*]}"
 

@@ -11,7 +11,7 @@ WHERE o.customer_id IS NULL
 4	Martin	NULL	NULL
 5	Peter	NULL	NULL
 
-Right Anti Join: Returns row from Right that has no match in Letf table. Used to check existence of a row
+Right Anti Join: Returns row from Right that has no match in Leff table. Used to check existence of a row
 
 SELECT c.id, c.first_name, o.order_id, o.sales
 FROM customers AS c
@@ -21,7 +21,7 @@ WHERE c.id IS NULL
 
 NULL	NULL	1004	10
 
-Full Anti Join: Returns data from both tale that have no match in opposite table
+Full Anti Join: Returns data from both tables that have no match in opposite table
 
 Select c.id, c.first_name, o.order_id, o.sales
 From customers AS c

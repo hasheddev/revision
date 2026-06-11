@@ -1,4 +1,4 @@
-- Combining similar information before data analysing. E.g a report combining employee, customers, suppliers and studentsfor a report. This avods error in multiple query when logic in some query is changed and others not.
+- Combining similar information before data analysing. E.g a report combining employee, customers, suppliers and studentsfor a report. This avoids error in multiple query when logic in some query is changed and others not.
 
 - To combine split table into one e.g order table split by year combined to generate one result
 

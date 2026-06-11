@@ -8,7 +8,7 @@
 #     done
 # done
 
-# exec 3>/dev/null open file descriptor 3 aand writes it to dev null
+# exec 3>/dev/null open file descriptor 3 and writes it to dev null
 exec {fd}<>pipe #store file descriptor opened in fd for read and write
 
 client() {

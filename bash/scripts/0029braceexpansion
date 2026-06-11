@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-#braces deals with string whlie globing /wildcards deal with underlyinf filesS
+#braces deals with string while globing /wildcards deal with underlying files
 echo {hello,world,foo}
 
 filename='my-file'

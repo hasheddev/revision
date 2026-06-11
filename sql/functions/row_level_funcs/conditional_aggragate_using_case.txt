@@ -1,0 +1,12 @@
+Applies agregate functions only on subsets of data that fulfil certain conditions
+
+Count how many time each customer has made an order with sales > 30
+
+SELECT  CustomerID,
+SUM(CASE
+	WHEN Sales > 30 THEN 1
+	ELSE 0
+END) TotalordersHigh
+COUNT(*) TotalOrders
+FROM Sales.Orders
+GROUP BY CustomerID

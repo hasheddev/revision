@@ -20,7 +20,7 @@ FROM Sales.Orders
 2025-03-10 12:59:04.0000000	2027-03-10 12:59:04.0000000	2025-01-10 12:59:04.0000000
 2025-03-16 23:25:15.0000000	2027-03-16 23:25:15.0000000	2025-01-16 23:25:15.0000000
 
-Date diff finc difference between two dates
+Date diff find difference between two dates
 
 DATEDIFF(part, start_date, end_date)
 

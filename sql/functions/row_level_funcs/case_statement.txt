@@ -1,0 +1,67 @@
+Evaluates a list of conditions and returns a value when the first condition is met
+
+CASE
+	WHEN condition1 THEN result1
+	WHEN condition2 THEN result2
+	ELSE default
+END
+
+else is optional and can be omitted
+
+It's main purpose is data transformation to derive new column based on existing data.
+
+It is used to categorize data based on conditions for aggregation.
+It is also use to map datafrom one type to another to make data more readable say 0/1 to inactive/active
+
+Generate a report showing total sales for categories high(>50), medium(>20) low(<20). Sort result from highest to lowest
+
+The query belowuses t as subquery alias to avoid error
+
+SELECT Category, SUM(Sales) AS TotalSales
+FROM (
+		SELECT  OrderId, Sales,
+		CASE
+		 WHEN Sales > 50 THEN 'High'
+		 WHEN Sales > 20 THEN 'Medium'
+		 ELSE 'Low'
+		END Category
+		FROM Sales.Orders
+)t
+GROUP BY Category
+ORDER BY TotalSales DESC
+
+
+RULES
+Data type of output result must be matching say ELSE 3 would be wrong
+
+Case statements can be used anywhere from Group by, Order by and so on
+
+
+SELECT  EmployeeID, FirstName, LastName, Gender,
+CASE
+	WHEN Gender = 'F' THEN 'Female'
+	WHEN Gender = 'M' THEN 'Male'
+	ELSE 'N/A'
+END FullGenderText
+FROM Sales.Employees
+
+Mapping can also be from full value to abbreviated value like country to code  Germany DE
+
+SPECIAL syntax where only one column is used and when operator is =
+
+CASE Country
+	WHEN 'Germany' THEN 'DE'
+	WHEN 'India' THEN 'US'
+	WHEN 'France' THEN 'FR'
+	ELSE 'n/a'
+END
+
+Handling NULL: Find average scores of customers and treat nulls as 0, provide details (lastname, customerId)
+
+SELECT  CustomerID, LastName, Score,
+AVG(CASE
+		WHEN Score IS NULL THEN 0
+		ELSE Score
+	END) OVER () AvgCustomerClean,
+AVG(Score) OVER() AvgCustomer
+FROM Sales.Customers
