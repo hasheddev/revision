@@ -1,0 +1,7 @@
+It calculates distribution of data points within a window
+
+CUME_DIST() OVER (ORDER BY Sales DESC)
+
+If a value repeats sql uses the last row with this value as row number e.g row 2 to 5 have same value cume_dist = 5 / total_row
+And all rows with same value have same distance values
+Cumulative distribution depends on sze of data set

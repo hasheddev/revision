@@ -1,0 +1,4 @@
+Find highest sale of orders
+
+SELECT MAX(sales) max_sale_value
+FROM orders;

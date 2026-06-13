@@ -1,0 +1,17 @@
+Sql sorts before ranking data
+
+There is integer based ranking (1,2,3...)
+Percentage based ranking (From 0 to 1) 0.2%,0.5% e.t.c calledd continuous/normalized values
+Used for distribution analysis e.g find top 20% products. This is in relation to overall total
+Integer based ranking answers questions like top 3 products(position within a list) known as top-bottom n analysis
+FUCNTIONS 
+- Top/Bottom N Analysis(Integer) - ROW_NUMBER, RANK, DENSE_RANK, NTILE
+- Distribution analysis(percentage) - CUME_DIST(), PERCENTAGE_RANK()
+
+SYNTAX(Top/Bottom N Analysis)
+- They do not allow any expressions except NTILE(n)
+- Optional partition by
+- Cumpolsory Order By
+- Frame clause not allowed
+
+RANK() OVER(PARTITION BY ProductID ORDER BY Sales)

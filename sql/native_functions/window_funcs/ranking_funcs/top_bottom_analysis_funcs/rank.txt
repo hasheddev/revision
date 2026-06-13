@@ -1,0 +1,19 @@
+Assigns rank to each row same value has same rank and leaves gap in ranking (1, 2, 2, 4) due to shared rank
+
+SELECT
+	OrderID,
+	ProductID,
+	Sales,
+	RANK() OVER(ORDER BY Sales DESC) SalesRank
+FROM Sales.Orders
+
+8	101	90	1
+4	105	60	2
+10	102	60	2
+6	104	50	4
+7	102	30	5
+5	104	25	6
+9	101	20	7
+3	101	20	7
+2	102	15	9
+1	101	10	10

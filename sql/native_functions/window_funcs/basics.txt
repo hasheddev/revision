@@ -1,0 +1,85 @@
+Window functions allows us to do aggregations on subsets of data without losing the level of detail of rows
+
+Group by is used with aggregate functions for simple analysis
+Window functions are used for advanced data analysis and can also  use the simple aggregate functions(count, sum, avg, min, max) like group by
+Window functions have 3 categories
+- Aggregate functions(count, sum, avg, min, max)
+- Ranking functions (row_number, rank, dense_rank, cume_dist, percent_rank, ntile)
+- Value(analytics) functions (lead, lag, first_value, last_value)
+
+SYNTAX
+two parts
+1- window function
+2- over clause(partition clause, order clause, frame clause)
+
+AVG(sales) OVER (PARTITION BY Category ORDER BY OrderDate ROWS UNBOUNDED PRECEDING)
+
+** Window function performs calculation on top of a window
+
+AVG(sales) = function expression may take empty args, single/multiple column args, number as arg, or expressions in the case of some values like CASE statements.
+
+Function args:
+Aggregate := COUNT: any data types. OTHERS accept only NUMERIC
+Ranking := NTILE: Numeric. OTHERS TAKE NO ARGUMENT
+Value: := All accept any data type as argument
+
+** OVER: tells sql we are using window function
+Can be empty OVER() and it defines data window
+* PARTITON BY: divides data set into groups/partition
+if not present the whole data is counted by one window
+if present function applies to individual windows
+
+SUM(sales) OVER()  gives sum of all sales
+SUM(sales) OVER(PARTITON BY month)  gives sum of all sales for each month  PARTITON BY month, OrderStatus  for each combination of product and order status as shown in sum_window.txt
+
+* ORDER BY: sorts data within a window optional for aggregate functions but is a must for Rank and value functions. check rank_order.txt for examples
+
+* Window frame: Defines a subset of rows within each window that is relevant for the calculation i.e scope in window to be involved in calculation window within window
+
+AVG(Sales) OVER (PARTITION BY Category ORDER BY OrderDate ROWS BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING)
+- Frame type   ROWS, RANGE
+- Frame Boundry
+  - Lower Value can be (CURRENT ROW, N PRECEDING, UNBOUNDED PRECEDING)
+  - Higher value can be (CURRENT ROW, N FOLLOWING UNBOUNDED FOLLOWING)
+Frame clause cannot be used without frame clause and lower boundary must be before higher boundary
+Example SUM(Sales) OVER(ORDER BY Month ROWS BETWEEN CURRENT MONTH AND 2 FOLLOWING  Month 1 result will have sum of sales from it's row and the following 2 rows while for rows where 2 following are less that 2 say 1 and 0  following rows the sum is 2 rows sum and same valuw as sales for last row(0 following)
+Unbounded following  makes last record the target for each sub window unbounded following is the reverse of this with sub window getting covering larget table contents
+
+Frame does not cross over to other windows
+
+ONCE Order by is used the default Frame is ROWS BETWEEN UNBOUNDED PRECEEDING AND CURRENT ROW If Order By is removed etire table is a window
+
+Rules
+- Window function can be used only in select and Order by clauses thus they cannot be used to filter data (where, group by etc)
+- They cannot be nested SUM(SUM(Sales) OVER()) OVER()
+- Sql executes window function after the WHERE clause
+- Window functions can be used with GROUB BY only if the same columns allowed and used by group by are used (Rank customers based on thier total sales)
+SELECT
+  CustomerID,
+  SUM(Sales) TotalSales,
+  RANK() OVER(ORDER BY SUM(Sales) DESC) SalesRank
+From Sales.Orders
+GROUP BY CustomerID
+
+The rule says you can use a window function with GROUP BY only if it uses the same columns.
+
+In the query, everything is operating on the exact same level of data—the CustomerID level:
+
+The GROUP BY clause groups by CustomerID. it can also be ORDER BY CustomerId
+
+The RANK() function uses SUM(Sales). Because SUM(Sales) is a valid aggregate for the CustomerID group, SQL allows it.
+
+WITH GroupedSales AS (
+    -- Step 1: Calculate the sum once
+    SELECT 
+        CustomerID,
+        SUM(Sales) AS TotalSales
+    FROM Sales.Orders
+    GROUP BY CustomerID
+)
+-- Step 2: Use that calculated sum to rank
+SELECT 
+    CustomerID,
+    TotalSales,
+    RANK() OVER (ORDER BY TotalSales DESC) AS SalesRank
+FROM GroupedSales;

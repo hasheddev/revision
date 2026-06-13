@@ -1,0 +1,2 @@
+CUME_DIST   uses formula Position Nr / number of rows
+PERCENT_RANK uses Position Nr - 1 / number of rows - 1

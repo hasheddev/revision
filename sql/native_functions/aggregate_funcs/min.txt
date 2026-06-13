@@ -1,0 +1,4 @@
+Find lowes sales of all orders
+
+SELECT MIN(sales) min_sale_value
+FROM order

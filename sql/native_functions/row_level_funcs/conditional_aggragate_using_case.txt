@@ -10,3 +10,5 @@ END) TotalordersHigh
 COUNT(*) TotalOrders
 FROM Sales.Orders
 GROUP BY CustomerID
+
+Gives total number of times a product sells with > 30 and also counts number of orders for the product

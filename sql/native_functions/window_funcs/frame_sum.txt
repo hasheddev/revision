@@ -1,0 +1,21 @@
+SELECT OrderId, OrderDate, Sales, OrderStatus,
+SUM(Sales) OVER (PARTITION BY OrderStatus ORDER BY OrderDate ROWS BETWEEN CURRENT ROW AND 2 FOLLOWING) TotalSales
+FROM Sales.Orders
+
+1	2025-01-01	10	Delivered	55
+3	2025-01-10	20	Delivered	95
+5	2025-02-01	25	Delivered	105
+6	2025-02-05	50	Delivered	80
+7	2025-02-15	30	Delivered	30
+2	2025-01-05	15	Shipped	165
+4	2025-01-20	60	Shipped	170
+8	2025-02-18	90	Shipped	170
+9	2025-03-10	20	Shipped	80
+10	2025-03-15	60	Shipped	60
+
+SHORT hand only for preceding
+
+SELECT OrderId, OrderDate, Sales, OrderStatus,
+SUM(Sales) OVER (PARTITION BY OrderStatus ORDER BY OrderDate ROWS 2 PRECEDING) TotalSales
+FROM Sales.Orders
+

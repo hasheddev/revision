@@ -1,0 +1,56 @@
+RUNNING TOTAL AND ROLLING TOTAL
+
+Tracking current sales with target sales and providing insights into historical pattern
+
+They aggregate a sequence of numbers and the aggregation updates when a new member is added (analysis over time)
+
+Running Total: Aggregates from beginning up to current with no data missing
+
+Rolling total: Aggregate all values within a fixed time window e.g 30 days,. As new data is added, the oldest is dropped giving a shifting.rolling time window
+
+RUNNING TOTAL:
+SUM(SALES) OVER (ORDER BY MONTH) //Default ROWS BETWEEN UNBOUNDED PRECEEDING AND CURRENT ROW    frame default when order by is sued and frame is not given
+
+ROLLING TOTAL
+SUM(SALES) OVER (ORDER BY MONTH ROWS BETWEEN 2 PRECEEDING AND CURRENT ROW)
+
+MOVING AVERAGE
+SELECT
+     OrderID,
+     ProductID,
+     OrderDate,
+     Sales,
+      AVG(Sales) OVER (PARTITION BY ProductID) AvgByProduct,
+     AVG(Sales) OVER (PARTITION BY ProductID ORDER BY OrderDate ASC) MovingAvg
+FROM Sales.Orders
+
+1	101	2025-01-01	10	35	10
+3	101	2025-01-10	20	35	15
+8	101	2025-02-18	90	35	40
+9	101	2025-03-10	20	35	35
+2	102	2025-01-05	15	35	15
+7	102	2025-02-15	30	35	22
+10	102	2025-03-15	60	35	35
+5	104	2025-02-01	25	37	25
+6	104	2025-02-05	50	37	37
+4	105	2025-01-20	60	60	60
+
+SELECT
+     OrderID,
+     ProductID,
+     OrderDate,
+     Sales,
+      AVG(Sales) OVER (PARTITION BY ProductID) AvgByProduct,
+     AVG(Sales) OVER (PARTITION BY ProductID ORDER BY OrderDate ASC ROWS BETWEEN CURRENT ROW AND 1 FOLLOWING) RollingAvgLimit
+FROM Sales.Orders
+
+1	101	2025-01-01	10	35	15
+3	101	2025-01-10	20	35	55
+8	101	2025-02-18	90	35	55
+9	101	2025-03-10	20	35	20
+2	102	2025-01-05	15	35	22
+7	102	2025-02-15	30	35	45
+10	102	2025-03-15	60	35	60
+5	104	2025-02-01	25	37	37
+6	104	2025-02-05	50	37	50
+4	105	2025-01-20	60	60	60

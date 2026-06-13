@@ -1,0 +1,40 @@
+Returns sum of all values within a window
+
+SUM(Sales) OVER (PARTITION BY Product)
+It Ignores NULL in calculation and accetps only Integers.
+If all values are NULL it returns NULL
+
+Use cases
+
+- Overall analysis
+- Group analysis
+
+SELECT
+	OrderID,
+	OrderDate,
+	ProductID,
+	SUM(Sales) OVER () TotaSales,
+	SUM(Sales) OVER (PARTITION BY ProductID) SalesByProduct
+From Sales.Orders
+
+1	2025-01-01	101	380	140
+3	2025-01-10	101	380	140
+8	2025-02-18	101	380	140
+9	2025-03-10	101	380	140
+10	2025-03-15	102	380	105
+2	2025-01-05	102	380	105
+7	2025-02-15	102	380	105
+5	2025-02-01	104	380	75
+6	2025-02-05	104	380	75
+4	2025-01-20	105	380	60
+
+- Comparison analysis Part to whole analysis
+Percentage contribution of each product sales to total sales
+
+SELECT
+        OrderID,
+        OrderDate,
+        ProductID,
+        SUM(Sales) OVER () TotaSales,
+        ROUND(CAST(Sales AS FLOAT) / SUM(Sales) OVER () * 100, 2) PercenntageOfTotal
+From Sales.Order

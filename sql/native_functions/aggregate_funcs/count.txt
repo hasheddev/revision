@@ -1,0 +1,4 @@
+Find totalnumber of orders
+
+SELECT COUNT(*) total_nr
+FROM orders;

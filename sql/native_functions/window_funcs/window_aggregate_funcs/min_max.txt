@@ -1,0 +1,62 @@
+MIN returns lowest value in a window MAX does the opposite
+
+MAX(Sales) OCER (PARTITION BY PRODUCT) find highest sales for each product. Both Ignore null
+
+Highest and lowest sales across all orders and for each product
+
+ SELECT
+	 OrderID,
+	 ProductId,
+	 Sales,
+	 Max(Sales) OVER () HighestSale,
+	 Min(Sales) OVER () LowestSale,
+	 Max(Sales) OVER (PARTITION BY ProductID) HighestSaleByProduct,
+	 Min(Sales) OVER (PARTITION BY ProductID) LowestSaleByProduct
+	FROM Sales.Orders
+
+1	101	10	90	10	90	10
+3	101	20	90	10	90	10
+8	101	90	90	10	90	10
+9	101	20	90	10	90	10
+10	102	60	90	10	60	15
+2	102	15	90	10	60	15
+7	102	30	90	10	60	15
+5	104	25	90	10	50	25
+6	104	50	90	10	50	25
+4	105	60	90	10	60	60
+
+ SELECT *,
+	MAX(Salary) OVER() HighestSal
+	FROM Sales.Employees
+
+1	Frank	Lee	Marketing	1988-12-05	M
+2	Kevin	Brown	Marketing	1972-11-25	M
+3	Mary	NULL	Sales	1986-01-05	F
+4	Michael	Ray	Sales	1977-02-10	M
+5	Carol	Baker	Sales	1982-02-11	F
+
+use subquery where salary = highest
+
+comparison analysis
+
+SELECT
+     OrderID,
+     ProductId,
+     Sales,
+     Max(Sales) OVER () HighestSale,
+     Min(Sales) OVER () LowestSale,
+     Max(Sales) OVER () - Sales DeviationFromMax,
+     Sales - Min(Sales) OVER () DeviationFromMin
+FROM Sales.Orders
+
+1	101	10	90	10	80	0
+2	102	15	90	10	75	5
+3	101	20	90	10	70	10
+4	105	60	90	10	30	50
+5	104	25	90	10	65	15
+6	104	50	90	10	40	40
+7	102	30	90	10	60	20
+8	101	90	90	10	0	80
+9	101	20	90	10	70	10
+10	102	60	90	10	30	50
+

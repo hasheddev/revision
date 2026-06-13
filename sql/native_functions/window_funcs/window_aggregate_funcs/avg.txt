@@ -1,0 +1,77 @@
+Returns average value within each window
+
+NULL is ignored for three products instead of dividing by 3 we divide by 2 getting inaccurate result 2 + 3 / 2instaed of / 3
+use COALESCE
+
+SALES FOR all products, for each product
+- Over all analysis
+- Group analysis
+
+SELECT
+	OrderID,
+	OrderDate,
+	Sales,
+	ProductID,
+	AVG(Sales) OVER () AvgSales,
+	AVG(Sales) OVER (PARTITION BY ProductID) AverageProductSale
+From Sales.Orders
+
+1	2025-01-01	10	101	38	35
+3	2025-01-10	20	101	38	35
+8	2025-02-18	90	101	38	35
+9	2025-03-10	20	101	38	35
+10	2025-03-15	60	102	38	35
+2	2025-01-05	15	102	38	35
+7	2025-02-15	30	102	38	35
+5	2025-02-01	25	104	38	37
+6	2025-02-05	50	104	38	37
+4	2025-01-20	60	105	38	60
+
+Null handling
+
+SELECT
+	CustomerID,
+	LastName,
+	Score,
+	AVG(Score) OVER () AvgScore
+From Sales.Customers
+
+DIVIDES BY 4
+1	Goldberg	350	625
+2	Brown	900	625
+3	NULL	750	625
+4	Schwarz	500	625
+5	Adams	NULL	625
+
+DIVIDES BY 5
+
+
+SELECT
+	CustomerID,
+	LastName,
+	Score,
+	AVG(COALESCE(Score, 0)) OVER () AvgScore
+From Sales.Customers
+
+1	Goldberg	350	500
+2	Brown	900	500
+3	NULL	750	500
+4	Schwarz	500	500
+5	Adams	NULL	500
+
+FIND all orders where sales are higher than average sales across al orders
+
+*- evaluate value is above average
+
+SELECT * FROM	( SELECT
+	 OrderID,
+	 ProductId,
+	 Sales,
+	 AVG(Sales) OVER () AvgSales
+	FROM Sales.Orders
+	) t WHERE Sales > AvgSales
+
+4	105	60	38
+6	104	50	38
+8	101	90	38
+10	102	60	38

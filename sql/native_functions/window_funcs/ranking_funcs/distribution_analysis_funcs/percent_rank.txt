@@ -1,0 +1,7 @@
+CALCULATES relative position of each row
+
+First value is always 0, for rowswith same value instead of last occurence row used in division first row occurence is used
+
+Row 3 to 5 have same value we use  3 - 1 / total_row - 1 and they all have same percentage rank. I has scale from 0 to 1
+
+PERCENTAGE_RANK() OVER(ORDER BY Sales DESC)

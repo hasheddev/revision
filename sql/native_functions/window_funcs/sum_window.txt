@@ -1,0 +1,59 @@
+SELECT SUM(Sales) Total_sales FROM Sales.Orders
+
+SELECT ProductId,
+SUM(Sales) sale_total_per_product FROM Sales.Orders
+GROUP BY ProductID
+
+380
+
+101	140
+102	105
+104	75
+105	60
+
+We use window functions to get details
+
+SELECT OrderId, OrderDate, ProductID,
+SUM(Sales) OVER(PARTITION BY ProductID) TotalSalesByProducts
+FROM Sales.Orders
+
+1	2025-01-01	101	140
+3	2025-01-10	101	140
+8	2025-02-18	101	140
+9	2025-03-10	101	140
+10	2025-03-15	102	105
+2	2025-01-05	102	105
+7	2025-02-15	102	105
+5	2025-02-01	104	75
+6	2025-02-05	104	75
+4	2025-01-20	105	60
+
+SELECT OrderId, OrderDate, ProductID,
+SUM(Sales) OVER() TotalSales
+FROM Sales.Orders
+
+1	2025-01-01	101	380
+2	2025-01-05	102	380
+3	2025-01-10	101	380
+4	2025-01-20	105	380
+5	2025-02-01	104	380
+6	2025-02-05	104	380
+7	2025-02-15	102	380
+8	2025-02-18	101	380
+9	2025-03-10	101	380
+10	2025-03-15	102	380
+
+SELECT OrderId, OrderDate, ProductID, OrderStatus, Sales,
+SUM(Sales) OVER(PARTITION BY ProductID, OrderStatus) TotalSalesByProductsStatus
+FROM Sales.Orders
+
+1	2025-01-01	101	Delivered	10	30
+3	2025-01-10	101	Delivered	20	30
+8	2025-02-18	101	Shipped	90	110
+9	2025-03-10	101	Shipped	20	110
+7	2025-02-15	102	Delivered	30	30
+10	2025-03-15	102	Shipped	60	75
+2	2025-01-05	102	Shipped	15	75
+5	2025-02-01	104	Delivered	25	75
+6	2025-02-05	104	Delivered	50	75
+4	2025-01-20	105	Shipped	60	60

@@ -1,0 +1,4 @@
+Find total sales of all orders
+
+SELECT SUM(sales) total_sales
+FROM orders;

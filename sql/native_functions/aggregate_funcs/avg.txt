@@ -1,0 +1,4 @@
+Find sales average
+
+SELECT AVG(sales) avg_sales
+FROM orders;

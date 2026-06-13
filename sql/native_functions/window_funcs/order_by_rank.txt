@@ -1,0 +1,33 @@
+Rank each order based on sales from highest to lowest with other details
+
+
+SELECT OrderId, OrderDate, Sales,
+RANK() OVER (ORDER BY Sales DESC) SalesRank
+FROM Sales.Orders
+
+8	2025-02-18	90	1
+4	2025-01-20	60	2
+10	2025-03-15	60	2
+6	2025-02-05	50	4
+7	2025-02-15	30	5
+5	2025-02-01	25	6
+9	2025-03-10	20	7
+3	2025-01-10	20	7
+2	2025-01-05	15	9
+1	2025-01-01	10	10
+
+
+SELECT OrderId, OrderDate, Sales, ProductID,
+RANK() OVER (PARTITION BY ProductID ORDER BY Sales DESC) SalesRank
+FROM Sales.Orders
+
+8	2025-02-18	90	101	1
+9	2025-03-10	20	101	2
+3	2025-01-10	20	101	2
+1	2025-01-01	10	101	4
+10	2025-03-15	60	102	1
+7	2025-02-15	30	102	2
+2	2025-01-05	15	102	3
+6	2025-02-05	50	104	1
+5	2025-02-01	25	104	2
+4	2025-01-20	60	105	1
