@@ -5,3 +5,18 @@ CUME_DIST() OVER (ORDER BY Sales DESC)
 If a value repeats sql uses the last row with this value as row number e.g row 2 to 5 have same value cume_dist = 5 / total_row
 And all rows with same value have same distance values
 Cumulative distribution depends on sze of data set
+
+SELECT
+	Product,
+	Price,
+	CUME_DIST() OVER(ORDER BY Price DESC) DistRank
+
+FROM Sales.Products
+
+Gloves	30	0.2
+Caps	25	0.4
+Socks	20	0.6
+Tire	15	0.8
+Bottle	10	1
+
+

@@ -1,0 +1,51 @@
+FIRST_VALUE allows access to first row within a window
+LAST_VALUE allows access to last row within a window
+
+FIRST_VALUE/LAST_VALUE(Sales) OVER(ORDER BY Month)
+applies RANGE BETWEEN UNBOUNDED PRECEEDING AND CURRENT ROW
+
+The default frame definition gives right answer for FIRST_VALUE but has to be cutomized for LAST_VALUE using
+
+ROWS BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING
+
+find lowest and highest sales for each product
+
+SELECT
+	OrderID,
+	ProductID,
+	Sales,
+	FIRST_VALUE(Sales) OVER(PARTITION BY ProductID ORDER BY Sales) lowestSales
+FROM Sales.Orders
+
+1	101	10	10
+3	101	20	10
+9	101	20	10
+8	101	90	10
+2	102	15	15
+7	102	30	15
+10	102	60	15
+5	104	25	25
+6	104	50	25
+4	105	60	60
+
+SELECT
+	OrderID,
+	ProductID,
+	Sales,
+	LAST_VALUE(Sales) OVER(PARTITION BY ProductID ORDER BY Sales ROWS BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING) highestSales
+FROM Sales.Order
+
+8	101	90	90
+9	101	20	90
+3	101	20	90
+1	101	10	90
+10	102	60	60
+7	102	30	60
+2	102	15	60
+6	104	50	50
+5	104	25	50
+4	105	60	60
+
+OR use
+FIRST_VALUE(Sales) OVER(PARTITION BY ProductID ORDER BY Sales DESC)
+OR MIN MAX

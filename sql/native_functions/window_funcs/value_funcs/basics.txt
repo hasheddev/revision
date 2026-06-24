@@ -1,0 +1,13 @@
+Access value from other rows for analytics
+
+functions are two group based on syntax
+LEAD, LAG - (expr, offset, default)
+
+FIRST_VALUE, LAST_VALUE - (expr)
+
+
+Rules
+expr can be any data type (all functions must have an arg)
+partition clause is optional
+order by is required
+frame clause is not allowed for lead and lag, is optional for first_value and should be used for last_value

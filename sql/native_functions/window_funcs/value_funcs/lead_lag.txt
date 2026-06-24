@@ -1,0 +1,80 @@
+LEAD - allows access to value from next row within a window
+LAG - allows access to value from previous row within a window
+
+LEAD/LAG(Sales, 2, 10) OVER(PARTITION BY ProductId ORDER BY OrderDate)
+
+Sales = expression
+2 = offset  number of rows forward/backwards from current row
+default is 1 and is optional
+10 = optional default value is NULL it is returned if offset row does not exist
+
+PARTITION BY - optional
+Order By - compulsory
+
+if default isnot give for lead the last row values is null while for lag thefirst row value is null
+
+Most common use case = time series anaysis, the process of analyzing the data to understand patterns, trends and behaviours over time
+
+YOY: year over year analysis: analyze overall growth or decline of the business's performance over time
+MOM - month over month: analyze short time trends and discover patterns in seasonality
+
+Analyze month over month performance by finding the percentage change in sales betwenn the current month and previous month
+
+SELECT
+*,
+CurrentMonthSales - PrevMonthSales AS MON_Change,
+ROUND(CAST((CurrentMonthSales - PrevMonthSales) AS FLOAT) / PrevMonthSales * 100, 1) AS MON_Percent_Chang
+FROM
+	(Select
+		Month(OrderDate) OrderMonth,
+		SUM(Sales) CurrentMonthSales,
+		LAG(SUM(Sales)) OVER(ORDER BY Month(OrderDate)) PrevMonthSales
+	From Sales.Orders
+	GROUP BY Month(OrderDate)
+	) t
+
+1	105	NULL	NULL	NULL
+2	195	105	90	85.7
+3	80	195	-115	-59
+
+In order to analyse customer loyalty rank customers based on average days between their orders
+
+SELECT
+CustomerID,
+AVG(DayBeweenOrder) AvgDays
+FROM
+	(Select
+		OrderID,
+		CustomerID,
+		OrderDate,
+		LEAD(OrderDate) OVER(PARTITION BY CustomerID ORDER BY OrderDate) NextOrderDate,
+		DATEDIFF(day, OrderDate, LEAD(OrderDate) OVER(PARTITION BY CustomerID ORDER BY OrderDate)) DayBeweenOrder
+	From Sales.Orders
+	)t
+GROUP BY CustomerID 
+
+1	18
+2	34
+3	34
+4	NULL
+
+SELECT
+CustomerID,
+AVG(DayBeweenOrder) AvgDays,
+RANK() OVER(ORDER BY COALESCE(AVG(DayBeweenOrder), 9999999999)) RankAvg
+FROM
+	(Select
+		OrderID,
+		CustomerID,
+		OrderDate,
+		LEAD(OrderDate) OVER(PARTITION BY CustomerID ORDER BY OrderDate) NextOrderDate,
+		DATEDIFF(day, OrderDate, LEAD(OrderDate) OVER(PARTITION BY CustomerID ORDER BY OrderDate)) DayBeweenOrder
+	From Sales.Orders
+	)t
+GROUP BY CustomerID 
+
+1	18	1
+2	34	2
+3	34	2
+4	NULL	4
+ 

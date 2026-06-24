@@ -5,3 +5,17 @@ First value is always 0, for rowswith same value instead of last occurence row u
 Row 3 to 5 have same value we use  3 - 1 / total_row - 1 and they all have same percentage rank. I has scale from 0 to 1
 
 PERCENTAGE_RANK() OVER(ORDER BY Sales DESC)
+
+SELECT
+*,
+CONCAT(DistRank, '%') DistRankPerc
+FROM (SELECT
+		Product,
+		Price,
+		PERCENT_RANK() OVER(ORDER BY Price DESC) DistRank
+		FROM Sales.Products
+		)t
+WHERE DistRank <= 0.4
+
+Gloves	30	0	0%
+Caps	25	0.25	0.25%
