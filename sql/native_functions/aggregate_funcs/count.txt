@@ -2,3 +2,6 @@ Find totalnumber of orders
 
 SELECT COUNT(*) total_nr
 FROM orders;
+
+COUNT(column_name): Ignores NULLs. It only counts rows where that specific column has a value.
+COUNT(*) Counts all including NULLS

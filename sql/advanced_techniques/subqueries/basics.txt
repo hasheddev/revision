@@ -1,0 +1,40 @@
+A subquery is a query inside another query
+Subquery - Inner query   Main Query - Outer query
+
+It is executed first and is not sent to the user and is deleted on query end
+
+When to use:
+ Nested query to simplify and make queries readable with logical flows
+
+Types
+  - Dependency Based
+    - Non correlated subquery
+    - Correlated subquery
+  - Result Type Based
+    - Scaler subquery: Returns only one value
+    - Row subquery: Returns single column with multiple rows
+    - Table subquery: Returns multiple columns and rows
+  - Location | Clauses based
+    - Select
+    - From
+    - Join
+    - Where
+      - Comparison operators
+      - Logical operators
+
+Execution: Subquery is executed and stored in cache and the main query interacts with this cache and return result to user
+
+Dependency Based:
+ Non-correlated: A subquery that can run independently from the main query e.g Clauses like Select, From Join and Where(ALL, ANY and IN).
+  Here the subquery is executed and the result is used by the main query.
+ Correlated: A subquery that relies on values from the main query
+   The main query gets a row from the database then pass it to the subquery which is then executed and the main query returns the subquery result execution if any or the row is ignored in output. This is done for every row.
+
+Non correlated subqueries are independent of the main query,are executed once and its result is used by the main query.
+It can be executed on its own and is easier to read.
+
+Correlated subquery is dependent on the main query, is executed for each row processed by the main query and the main query row is returned only if the subquery returns a value.
+It cannot be executed on its own and is harder and more complex to read
+
+Non correlated query has better performance than correlated queery, The are used for static comparisons, filteringwit constnts.
+Corralated subquery s used for dynamic row by row comparison

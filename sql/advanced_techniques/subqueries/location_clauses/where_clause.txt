@@ -1,0 +1,87 @@
+Used for complex filtering logic and makes query more flexible and dynamic
+
+Operators:
+- Comparison: <, >, =, !=, >=, <=
+- Logical: IN, ANY, ALL, EXISTS
+
+Comparison operators are used to compare two values
+SELECT column, ...
+FROM table
+WHERE column = (SELECT column FROM table2 WHERE condition)
+
+COMPARISON: The subquery must be a scaler subquery for comparison operators
+
+Find products that have a price higher that the average price of all products
+
+SELECT
+ ProductID,
+ Price
+FROM Sales.Products
+WHERE Price > (SELECT AVG(Price) FROM Sales.Products)
+
+104	25
+105	30
+
+LOGICAL:
+ IN - used to filer a list of values
+ SELECT Column FROM table WHERE column IN (SELEV+CT column FROM table2 WHERE condition)
+
+Subquery can have multiple values here
+Show details of orders made by customers in Germany
+
+
+SELECT
+ *
+FROM Sales.Orders
+WHERE CustomerID IN 
+		(SELECT CustomerID FROM Sales.Customers WHERE Country = 'Germany')
+
+3	101	1	5	2025-01-10	2025-01-25	Delivered	8157 W. Book	8157 W. Book	2	20	2025-01-10 18:24:08.0000000
+4	105	1	3	2025-01-20	2025-01-25	Shipped	5724 Victory Lane		2	60	2025-01-20 05:50:33.0000000
+7	102	1	1	2025-02-15	2025-02-27	Delivered	136 Balboa Court		2	30	2025-02-16 06:22:01.0000000
+8	101	4	3	2025-02-18	2025-02-27	Shipped	2947 Vine Lane	4311 Clay Rd	3	90	2025-02-18 10:45:22.0000000
+
+ANY: Check is condition is true for any value in a list
+Use comparison followed by ANY  WHERE  SAME FOR ALL E.g < ANY (1, 2, 3)
+Find female employees whose salaries are greater than the salaries of any male employee
+
+
+SELECT
+ *
+FROM Sales.Employees
+WHERE Gender = 'F' AND Salary > ANY 
+		(
+			SELECT Salary FROM Sales.Employees WHERE Gender = 'M'
+		)
+
+3	Mary	NULL	Sales	1986-01-05	F	75000	1
+ALL: Checks if a value matches EVERY values within a list
+
+Find female eployees whose salary are greater than salaries of all male employees
+
+
+SELECT
+ *
+FROM Sales.Employees
+WHERE Gender = 'F' AND Salary > ALL
+    (
+         SELECT Salary FROM Sales.Employees WHERE Gender = 'M'
+     )
+
+EXISTS
+Is used to check if a table row exist if any value is returned
+
+Below is a Correlated subquery using exists
+
+Select column, ...
+From tabel2
+Where EXISTS (SELECT 1 FROM Table1WHERE Table1.Id = Table2.Id)
+
+Show all orders made by cusytomers in Germany
+
+
+SELECT *
+FROM Sales.Orders o WHERE  EXISTS 
+	(SELECT * FROM Sales.Customers c WHERE Country = 'Germany' AND o.CustomerID = c.CustomerID)
+
+* can be 1 or any value here as it is faster

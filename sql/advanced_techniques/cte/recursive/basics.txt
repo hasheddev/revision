@@ -1,0 +1,73 @@
+A self-referencing query that repeatedly processes data until a certain condition is met.
+Used for hierarchical structures
+The new results have the results ofprevious execution and this is done with every iteration
+
+WITH CTE_NAME AS
+ (
+  SELECT FROM WHERE
+  UNION ALL
+SELECT FROM CTE_NAME WHERE BREAK CONDITION
+)
+
+The query that interacts with the database is called the anchor query and is executed only once, the second is the recursive query
+
+Generate a sequence of numbers from one to twenty
+
+MAXIMUM recursion is 100 is teerminated
+
+WITH Series
+AS (
+---anchor query
+SELECT 1 AS MyNumber
+UNION ALL
+--recursive query
+SELECT 1 + MyNumber
+FROM Series
+Where MyNumber < 20
+)
+
+SELECT * FROM Series
+OPTION(MAXRECURSION LIMIT)
+
+Not 21 to avoid having it in the result OPTION(MAXRECURSION 10)
+would result in above query giving error Maximum recursion 10 has been exhausted before statement completion
+
+The anchor query is executed only once the the recursive query is executrd once giving 2
+The 2 < 20 is checked and recursive query is executed over checking this condition till 19 < 20 giving result 20 then it breaks
+
+
+-Show employee hierarchy by displaying each eployee;s level within the organization
+
+It only compares against the current anchor table'd latest value
+
+WITH Emp_Hierarchy AS (
+    -- Anchor: Starts with Frank (ManagerID IS NULL)
+    SELECT
+        EmployeeID,
+        FirstName,
+        ManagerID,
+        1 AS HierarchyLevel -- Rename it so it doesn't conflict with your table's 'Level'
+    FROM Sales.Employees
+    WHERE ManagerID IS NULL
+
+    UNION ALL
+
+    -- Recursive: Explicitly join the base table to the CTE
+    SELECT
+        E.EmployeeID,
+        E.FirstName,
+        E.ManagerID,
+        1 + H.HierarchyLevel AS HierarchyLevel
+    FROM Sales.Employees AS E
+    INNER JOIN Emp_Hierarchy AS H 
+        ON E.ManagerID = H.EmployeeID 
+)
+SELECT * FROM Emp_Hierarchy;
+
+1	Frank	NULL	1
+2	Kevin	1	2
+3	Mary	1	2
+5	Carol	3	3
+4	Michael	2	3
+
+It applies result of previous joins for new joins e.g join 1 one value( frank) 2 two values(kevin, mary)

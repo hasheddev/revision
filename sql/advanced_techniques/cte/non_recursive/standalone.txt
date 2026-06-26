@@ -1,0 +1,72 @@
+It is defned and used independently. it runs independently as it is self-contained and does not rely on other CTES or query
+
+DB => CTE => Result => Main Query => Final Result
+
+Main query is dependent on the CTE
+
+WITH CTE-NAME AS
+(SLECT FROM WHERE)
+
+SELECT FROM CTE-NAME WHERE ...
+
+-- Find total sales per customer
+WITH CTE_Total_Sales AS
+(
+SELECT 
+  CustomerID,
+  SUm(Sales) TotalSales
+FROM Sales.Orders
+GROUP By CustomerID
+)
+
+SELECT 
+c.CustomerID,
+c.FirstName,
+c.LastName,
+cts.TotalSales
+FROM Sales.Customers c
+LEFT JOIN CTE_Total_Sales cts
+ON cts.CustomerID = c.CustomerID
+
+1	Jossef	Goldberg	110
+2	Kevin	Brown	55
+3	Mary	NULL	125
+4	Mark	Schwarz	90
+5	Anna	Adams	NULL
+
+With CTE we cannot use ORDER BY in CTE and subqueries,vies etc but can be used in MAIN queries
+
+Multiple standalone ctes
+
+WITH CTE1 AS (STATEMENT), CTE2 AS (STATEMENT), CTE3 AS (STATEMENT)
+Only the first starts with WITH
+
+-- Find total sales per customer fnd last order date for each customer
+WITH CTE_Total_Sales AS
+(
+SELECT 
+  CustomerID,
+  SUM(Sales) TotalSales
+FROM Sales.Orders
+GROUP By CustomerID
+)
+,
+CTE_Last_Order AS
+(
+ SELECT 
+ CustomerID,
+ MAX(OrderDate) LastOrderDate
+ FROM Sales.Orders
+ GROUP By CustomerID
+)
+
+SELECT 
+c.CustomerID,
+c.FirstName,
+c.LastName,
+cts.TotalSales,
+ctl.LastOrderDate
+FROM Sales.Customers c
+LEFT JOIN CTE_Total_Sales cts
+ON cts.CustomerID = c.CustomerID
+LEFT JOIN CTE_Last_Order ctl ON ctl.CustomerID = c.CustomerID

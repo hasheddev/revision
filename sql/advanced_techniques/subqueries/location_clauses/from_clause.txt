@@ -1,0 +1,41 @@
+It is used in order to create temporary result that acts as table for main table
+
+SELECT column, column, ...
+   FROM
+   (SELECT column FROM table where condition) alias  (a must)
+
+Find products that have higher that average price of all products
+
+SELECT ProductId, Price, AvgPrice
+FROM
+(
+	SELECT
+	ProductID,
+	Price,
+	AVG(COALESCE(Price, 0)) OVER () AvgPrice
+	FROM Sales.Products
+)t
+WHERE  Price > AvgPrice
+
+104	25	20
+105	30	20
+
+Rank customers based on totalamount of sales
+
+
+SELECT CustomerId, TotalSales,
+    RANK() OVER (ORDER BY TotalSales DESC) CustomerRank
+FROM
+(
+	SELECT
+	CustomerID,
+	SUM(Sales) TotalSales
+	FROM Sales.Orders
+	GROUP BY CustomerID
+)t
+ORDER BY TotalSales DESC
+
+3	125	1
+1	110	2
+4	90	3
+2	55	4

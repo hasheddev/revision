@@ -1,0 +1,20 @@
+A temporery named result set (virtual table) that can be used multiple times within a query to simplify and organize complex queries.
+This is called A common table expression query CTE and the other query is called a main query where the CTE can be used combined with other tables in the db or alone
+
+CTE table is temporary and using join with CTE will not work if the CTE is not used locally with the main query in the same query
+
+CTE VS SUBQUERY
+CTE is written top to bottom CTE first then main query while subquery is bottom to top
+Subquery can only be used once in the main query while the CTE cn be used multiple times in the main query
+
+Main purpose is to avoid repetition of query to avoid redundancy
+It improves code readability and adds modularity and simplicity to queries and is reusable
+
+CTE is stored in cache giving fast access
+
+WITH NAME AS (QUERY)
+
+Two subtypes
+
+Non-Recursive:  Standalone cte and Nested cte
+Recursive:

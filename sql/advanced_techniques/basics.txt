@@ -1,0 +1,13 @@
+Due to redundandy (repeated queries)
+
+Performance issues from complex queries
+
+Complexity of data warehouse
+
+Maintenance difiiculty
+
+Data base stress
+
+Security
+
+We use Subqueries, common table expressions(CTE), Views, Temporary tables and Create table as select(CTAS)

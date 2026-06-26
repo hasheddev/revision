@@ -1,0 +1,13 @@
+Database storage types are disk and cache storage
+
+Disk storage is slow to write and read but permanent
+Cache is fast to read and write but temporary
+
+Disk has 3 storage area types in disk storage
+User data: stores main content of database that is relevant to users e.g tables
+System Catalog: internal databse information about the database itself (Metadata) e.g table schema, column names, data type, nullable, length e.t.c Can be found in the Information Schema a system defined schema that provide info about the database, like tables and columns SELECt * from INFORMATION_SCHEMA.(VIEWS,TABLES,COLUMS e.t.c)
+Temporary data: used for shortterm tasks like processing queries or sorting data, Once done it is cleared (System Databases tempdb)
+
+How Simple queries work  SELECT FROM ORDERS
+
+Checks data in cache then disk

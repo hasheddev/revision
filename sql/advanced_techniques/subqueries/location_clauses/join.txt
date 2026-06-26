@@ -1,0 +1,28 @@
+Used to prepare data before joinning with other tables
+
+Show all customer details and find the total orders for each customer
+
+
+SELECT
+ *
+FROM Sales.Customers c
+LEFT JOIN (
+SELECT
+CustomerID,
+COUNT(*) TotalOrders
+FROM Sales.Orders
+GROUP BY CustomerID
+)o ON c.CustomerID = o.CustomerID
+
+1	Jossef	Goldberg	Germany	350	1	3
+2	Kevin	Brown	USA	900	2	3
+3	Mary	NULL	USA	750	3	3
+4	Mark	Schwarz	Germany	500	4	1
+5	Anna	Adams	USA	NULL	NULL	NULL
+
+OR
+
+SELECT
+ *,
+ (SELECT COUNT(*) FROM Sales.Orders o WHERE o.CustomerID = c.CustomerID ) TotalSales
+FROM Sales.Customers c   (CORRELATED SUBQUERY)
