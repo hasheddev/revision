@@ -1,0 +1,34 @@
+2- Hide complexity of tables and offer more friendly and easy to use objects
+
+Provide a view that combines details from orders, products, customers and employees
+
+CREATE VIEW Sales.V_Order_Details AS
+(
+	SELECT
+	o.OrderID,
+	o.OrderDate,
+	o.Sales,
+	o.Quantity,
+	p.Product,
+p.Category,
+	COALESCE(c.FirstName, '') + ' ' + COALESCE(c.LastName, '') CustomerName,
+	c.Country CustomerCountry,
+	COALESCE(e.FirstName, '') + ' ' + COALESCE(e.LastName, '') EmployeeName,
+	e.Department
+
+	FROM Sales.Orders o
+	LEFT JOIN Sales.Products p
+	ON p.ProductID = o.ProductID
+	LEFT JOIN Sales.Customers c
+	ON c.CustomerID = o.CustomerID
+	LEFT JOIN Sales.Employees e
+	ON e.EmployeeID = o.Sales
+)
+
+3 Security  used to prevent sensitive data leaks by creating views excluding private data (Column level security) or Rows and column (Row + Column level security)
+
+4 Flexibility and Dynamic Tables: This allows tables to be renamed, rows changed and so on, We use views so we can make changes to the tables.
+
+5 Multiple languages can be used to provide different views to data e.g users from different countries use different views that are translated
+
+6 Visual dynamic marts in a data warehouse that focus on different topics like sales, finance helps with data consistency

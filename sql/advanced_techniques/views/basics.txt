@@ -1,0 +1,89 @@
+View is an object found in the database
+
+The DB has a hierarchy
+
+- SQL Server: Manages multiple databases, stores and provides access to the databases for users or applications
+- Databases: collection of information that are stored in structural ways. Contains Schema
+- Schema: Logical layer that groups related objects together like tables and views e.g table, view describing same object
+- Table: Stores data in column and rows
+- View: A virtual table with structure but stores no data only after execution is the data available
+- Name, Datatype
+
+DDL: used to define and manage the structure of database: CREATE, DROP, ALTER
+
+THREE LEVEL ARCHITECTURE
+
+Physical level(internal layer): physical storage accessed and managed by db Admins(files, partitions, logs, catalog, blocks, caches)
+
+Logical Level: Enginners define how to store/structure the data using abstarction level (create table, views, indexes, procedures)  less complicated than the physical layer
+
+View Level: End users and applications see this, it is the highest level of abstarction fully prepared and customized and multiple sets can be created for multiple users/applications with
+relevant informations for each user (external layer)
+
+A View is a virtual table based on the result of a query without persistence in the database. Each view has a query attached but no data when a view is selected the qery is triggered and data is fetched from the table.
+
+Views are easier to maintain and change unlike tables but tables are faster than views(2 queries)
+
+Views are read only while tables are read/write
+
+Use cases
+
+1- Store central complex query logic in the db for access by multiple queries reducing project complexity e.g different users using same result for different purpose using same cte can be replaced with a view.
+
+View vs CTEs
+Cte is used to reduce redundancy in 1 query while Views reduce redundancy in multiple queries
+Cte imporves reusability in single queries while Views improve reusability in multi queries
+Ctes are temporary logic while views are persisted in the database
+Ctes need no maintenance(Auto cleanup), Views need to be maintained Create/Drop
+
+SYNTAX
+CREATE VIEW VIEW_NAME AS
+(
+  SELECT FROM WHERE
+)
+
+Find running total of each months
+
+CREATE VIEW Sales.V_Monthly_Summary AS
+(
+	SELECT
+	DATETRUNC(month, OrderDate) OrderMonth,
+	SUM(Sales) TotalSales,
+	COUNT(OrderID) TotalOrders,
+	SUM(Quantity) TotalQuantities
+	FROM Sales.Orders
+	GROUP BY DATETRUNC(month, OrderDate)
+)
+
+SELECT OrderMonth,
+TotalSales,
+SUM(TotalSales) OVER(ORDER BY OrderMonth) AS RunningTotal,
+TotalOrders,
+TotalQuantities,
+TotalSales
+FROM V_Monthly_Summary
+
+2025-01-01	105	105	4	6	105
+2025-02-01	195	300	4	8	195
+2025-03-01	80	380	2	2	80
+
+DROP VIEW Sales.V_Monthly_Summary
+
+To updte view we can use
+CREATE OR REPLACE VIEW but in sql server we use 2 ways
+DROP VIEW then recreate view or
+TSQL transact sql
+IF OBJECT_ID('Sales.V_Monthly_Summary', 'V') IS NOT NULL
+   DROP VIEW Sales.V_Monthly_Summary
+GO CREATE VIEW STATEMENT
+
+"GO tells the client tool, "Take all the SQL statements written above me, bundle them together as a single batch, send them to SQL Server to be executed, and wait until they finish before moving to the next batch."
+
+Because GO terminates a batch, any local variables declared before GO disappear after it
+A neat trick with GO in SQL Server is that you can follow it with a number to repeat that batch of code multiple times.
+GO 5
+
+In MYSQL   DELIMITER // is used
+
+View and its sql statement are stored in the CATALOG
+DROPPING VIEW does not delete data but it's metadata
