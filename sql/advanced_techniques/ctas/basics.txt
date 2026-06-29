@@ -1,0 +1,36 @@
+CTAS & TEMP
+
+A Table is a strucured collection of data, similar to a spreadsheet or grid(Excel) with column and rows, Cells are a single piece of data and are stored as database files on the disk.
+
+We have permanent and temporary tables
+Permanent tables last aslong as they are not dropped. Can be created with CREATE TABLE and CREATE TABLE AS SELECT(CTAS)
+Create/Insert: Creates table then inserts data into the table
+CTAS: Retrieve data from a atble and create a brand new table from the query shring same structure, it needs a database table to exist
+
+CTAS VS VIEWS
+Views store query but Ctas executes query and result is in a new table
+Views use two queries before returning result while the new ctas table is queried once making views slower
+Views maintain updated view of Original table while Ctas data differ fom the original table if the original is updated making it harder to maintain
+
+SYNTAX
+CREATE TABLE New_Table AS
+(
+ SELECT FROM WHERE
+)  Mysql postgress, oracle
+
+SELECT INTO New_Table
+FROM WHERE       Sql Server
+
+Use Cases
+If logic of view is complex and takes a lot of time to execute when centralizing queries and query cannot be optimized we create an intermediate tabe for the users
+
+How to Refresh CTAS
+Reexecuting create expression gives error use
+IF OBJECT_ID('Sales.Ctas_table_name', 'U') IS NOT NULL
+  DROP TABLE Sales.Ctas_table_name
+
+CREATE NEW CTAS
+
+CTAS Create persistent snapshots at specific times to analyze data quality issue
+
+Create phisical data marts instead of virtual data marts if virtual data marts take a lot of time to execute and also replacecomplex data marts

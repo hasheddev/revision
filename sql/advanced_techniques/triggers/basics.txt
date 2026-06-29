@@ -1,0 +1,18 @@
+Triggers are special stored procedures that automatically runs in response to a specific event on a table or view (Insert, Update, Delete)
+
+Types
+
+DML triggers: Insert update, delete
+DDL triggers: Create, Alter, Drop
+LOGON: Responds to login events
+
+DML: Before After/For and Instead Of triggers (Focus)
+
+CREATE TRIGGER Name ON TableName
+WHEN(AFTER, BEFORE) INSERT, UPDATE, DELETE
+BEGIN
+	--statements
+END
+
+Use cases
+- Logging: Track changes to table by logging changes for analysis

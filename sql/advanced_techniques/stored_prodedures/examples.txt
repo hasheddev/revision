@@ -1,0 +1,110 @@
+CREATE PROCEDURE Name AS
+
+BEGIN
+  statements
+END
+
+EXEC Name
+
+CREATE PROCEDURE CustomerSummary AS
+BEGIN
+  SELECT COUNT(*) TotalCustomers,
+  AVG(Score) AvgScore
+  FROM Sales.Customers
+  WHERE Country = 'USA'
+END
+
+EXEC CustomerSummary
+
+CREATE PROCEDURE GetEmployeeData
+    @DepartmentID INT,
+    @MinSalary DECIMAL(10,2),
+    @Status VARCHAR(20)
+AS
+BEGIN
+    SELECT * FROM Employees 
+    WHERE DeptID = @DepartmentID 
+      AND Salary >= @MinSalary 
+      AND CurrentStatus = @Status;
+END;
+
+
+
+CREATE PROCEDURE CustomerSummary @Country NVARCHAR(50) AS
+BEGIN
+  SELECT COUNT(*) TotalCustomers,
+  AVG(Score) AvgScore
+  FROM Sales.Customers
+  WHERE Country = @Country
+END
+
+EXEC CustomerSummary @Country = 'Germany'
+
+DROP PROCEDURE Name
+
+Mysql Does not support default values for parameters byt postgress and sql server do
+
+CREATE PROCEDURE CustomerSummary @Country NVARCHAR(50) = 'USA' AS
+BEGIN
+  SELECT COUNT(*) TotalCustomers,
+  AVG(Score) AvgScore
+  FROM Sales.Customers
+  WHERE Country = @Country
+END
+
+Parameters pass values stored into a stored procedure or return values back to the caller
+
+VARIABLES temporarily store and manipulate data during procedure execution
+
+- DECLARE Variables usually at the start of procedures DECLARE @Name INT,@Name Type
+
+CREATE PROCEDURE CustomerSummary @Country NVARCHAR(50) = 'USA' AS
+BEGIN
+	DECLARE @TotalCustomers INT, @AvgScore FLOAT;
+	--
+
+  SELECT @TotalCustomers =  COUNT(*),
+     @AvgScore = AVG(Score)
+  FROM Sales.Customers
+  WHERE Country = @Country
+
+  PRINT 'TotalCustomers from ' + @Country + ': ' + CAST(@TotalCustomers AS NVARCHAR);
+  PRINT 'Average Score from ' + @Country + ': ' + CAST(@AvgScore AS NVARCHAR);
+END
+
+OUTPUT
+ @OrderCount INT OUTPUT
+
+CREATE PROCEDURE ProcessProductSale
+    @ProductID INT,
+    @Quantity INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    DECLARE @StockAvailable INT;
+
+    -- Look up current stock levels
+    SELECT @StockAvailable = StockQuantity FROM Products WHERE ProductID = @ProductID;
+
+    -- Check if we have enough stock using conditional logic
+    IF @StockAvailable >= @Quantity
+    BEGIN
+        BEGIN TRANSACTION;
+            -- 1. Deduct the sold units from inventory
+            UPDATE Products 
+            SET StockQuantity = StockQuantity - @Quantity 
+            WHERE ProductID = @ProductID;
+
+            -- 2. Log the transaction details
+            INSERT INTO SalesLog (ProductID, QuantitySold, SaleDate)
+            VALUES (@ProductID, @Quantity, GETDATE());
+        COMMIT TRANSACTION;
+        
+        PRINT 'Sale successfully processed.';
+    END
+    ELSE
+    BEGIN
+        PRINT 'Error: Insufficient inventory to complete the transaction.';
+    END
+END;
+

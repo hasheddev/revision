@@ -1,0 +1,11 @@
+Used to handle repeated tasks involving business logic (SELECT UPDATE DELETE) That user defined function cannot do.
+In Mysql and others the format differs and the use IN, OUT and INOUT
+
+run using CALL SP / EXEC SP
+
+Stored procedure vs query
+
+Query asks for data from database, procedures interact multiple times in one execution as required it is similar to functions
+
+Sql statements can be put in external code that connect to the db this makes the code slightly slower due to connection.
+Procedures are also compliles and stored on validatation by the db while the external code is compiled on request making procedures faster. External code like python can do more complex things and also allow for flexibility. Use external code(python/javascript) for big complex projects and stored procedures for small projects

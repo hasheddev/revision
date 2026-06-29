@@ -1,0 +1,26 @@
+Store intermediate results in temporary storage within the database during the session. The database will drop all of them once the session ends
+
+SELECT INTO #New_table  FROM WHERE
+
+#name = temporary table
+Check System databases tempdb to find temporary tables
+
+Loads data into temporary table, Transform it then load into permanent table
+
+This table is deleted when a session ends
+
+Use cases
+
+Create Intermediate result for data extraction and tranformation
+
+Storage: Subquery and CTE are stored in memory, Tmp Table and CTAS are stored on disk while View stores no data
+
+Scope: Subquery and CTE are single query while Tmp table, CTAS and Views are multi queries
+
+Lifetime: Sunquery, CTE and Tmp tables are temporary while CTAS and Views are permanent
+
+When Deleted: Subquery and CTE are deleted at the end of query, Tmp table at session end, CTAS and View on DROP.
+
+Reusability: Subquery(limited) In a query in one place, for CTE(limited) multiple queries in 1 query, Tmp table(Medium) multiple queries during one session, CTAS and Views(High) Multi queries
+
+Freshness: Subquery, View and CTE are always fresh, Tmp and CTAS store data without update

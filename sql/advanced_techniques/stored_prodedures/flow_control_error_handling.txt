@@ -1,0 +1,50 @@
+IF
+BEGIN
+END
+ELSE
+BEGIN
+END
+
+IF EXISTS (SELECT 1 FROM Table WHERE Value IS NULL)
+BEGIN
+  UPDATE Table
+     SET Value = 0
+  WHERE Value IS NULL AND COND
+  PRINT('UPDATING NULL TO ZERO')
+ELSE
+BEGIN
+  PRINT('NO NULL FOUND')
+END;
+
+BEGIN TRY
+END TRY
+
+BEGIN CATCH
+END CATCH
+
+CREATE PROCEDURE CustomerSummary @Country NVARCHAR(50) = 'USA' AS
+BEGIN
+	DECLARE @TotalCustomers INT, @AvgScore FLOAT;
+	--
+
+  SELECT @TotalCustomers =  COUNT(*),
+     @AvgScore = AVG(Score)
+  FROM Sales.Customers
+  WHERE Country = @Country
+
+  BEGIN TRY
+     SELECT 1 / 0 Error
+  END TRY
+ 
+  BEGIN CATCH
+      PRINT('ERROR ENCOUNTERED');
+      PRINT('Message:' + ERROR_MESSAGE());
+      PRINT('Err Number:' + CAST(ERROR_NUMBER() AS NVARCHAR));
+      PRINT('Err Line: ' + CAST(ERROR_LINE() AS NVARCHAR));
+      PRINT('Err Procedure: ' + ERROR_PROCEDURE());
+  END CATCH
+
+  PRINT 'TotalCustomers from ' + @Country + ': ' + CAST(@TotalCustomers AS NVARCHAR);
+  PRINT 'Average Score from ' + @Country + ': ' + CAST(@AvgScore AS NVARCHAR);
+END
+
