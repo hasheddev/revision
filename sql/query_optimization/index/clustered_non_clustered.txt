@@ -1,0 +1,39 @@
+When no index is used when a table is created, yhe data is stored in a datafile inside blocks called pages. A page is the unit of data storage in a database of fixed size 8kb where anything can be stored. We have data page and index page groups, the intermediate stores pointers for smaller groups and the leeaf stores direct location.
+The data page has a page header(96 bytes) containing metadata like pageid and file id =  fileID: pageId, Variable stored after this as many rows as possible and the offset array that keeps track of where rows begin and end.
+With no index data is inserted in the data page as user inputs them and unsortedcalled a heap table(without clustered index). Insertion is fast but read is slow. Sql has to scan all rows (Full table scan) page by page, row by row.
+
+Clustered Index: an index created on id column has rows sorted by id making search faster and a B-tree is built from this with data stored at the leaf level.
+Intermediate leves contain pages like index pages that stores pointers to another page (leaf level data pages). The pointers are for groups or clusters stored in a page hence the name.
+The root node stores pointers to index pages e.g an index page might contain pointers for enties 1-5,6-10 and 11-15 the root node contains the pointer to the index pages for these say address => for ids 1-15. Data in the root node is sorted.
+
+Non clustered Index: Data is not changed in the data pages(not sorted)  an index page is built storing pointers of id to where exactly the data is stored in the row as id->fileid:pageNumber:rowOffset  where clusterd index points to a page npn clusterd points not just to page but to the row and clustered pages are sorted.
+The index pages with the row pointers are stored at the leaf nodes and the intermediate nodes contain the data and the data pages are not part of the b tree. the root node stores pointers for groups, the intermediate stores pointers for smaller groups and the leeaf stores direct location
+
+Clustered index phisically sorts data in pages and contains levels of index pages pointing to root leaf nodes. While non clustered index tree only contains index pages that store data location.
+
+In reality the two types of indexed can be in a table so the leaf pages of the non clustered points to the leaft nodes of the clustered index. Only one clustered index and multiple non clustered indexes. The clustered index is the main index
+
+Clustered index has faster read performance while non clustered index has faster write due to no sorting.
+Clustered index is more storage efficient.
+
+Use cases
+Clustered index is used for unique non frequently modified columns to improve range query performance making primary keys the perfect candidate for this.
+For clustered index: we use searched conditions and joins not involving the primary key and exact value match
+
+
+CREATE
+
+CREATE  [CLUSTERED | NONCLUSTERED(default)] INDEX Indexname On Table (Column, colums, ...)  can be single or composite index
+CREATE CLUSTERED        CREATE NONCLUSTERED    CREATE INDEX(non clustered) ON (LastName ASC, FirstName(DESC)
+
+Name: inx_TableName_ColumnName for clarity
+
+DROP INDEX Name On TableName
+
+For composite index the where clause should be in the order of the index column arrangement or sql will not use it (WHERE Lastname AND FirstName)
+If the left most composite column only is used the index will be used (LastName) alone but if the rightmist column is used it will not use the index
+
+A,B,C,D
+A, AB, ABC - index willl be used
+
+B, AC, ABD - index will not be used   (Leftmost prefix rule)

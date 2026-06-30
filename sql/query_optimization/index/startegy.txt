@@ -1,0 +1,21 @@
+For each project we have to create an index strategy to avoid redundancy and waste of storage
+
+Avoid over indexing because index slows down write performance when data is inserted, updated and deleted as index has to be updated
+
+too many indexes can confuse execution plan increasing planning time and choosing a suboptimal plan.
+Initial stategy 4 phases
+
+1 Create an intial indexing strategy by defining goals of strategy. Determine purpose Online Analytical Processing OLAP where heavy reads are needed or Online transactional processing OLTP with read write.
+We can optimize read or write performance for Olap we might need to optimize write performance or read performance but the main goal is read performance optimization
+For Oltp we have to optimize write operation
+Olap usially has smaller writes compared to read we need column store index to improve aggregation speed for fact tables
+For Oltp we use lustered indexfor eac primary key and non clustered key but we have to be more careful as more index slows write
+
+2 Usage Patterns: We identify frequently used tables and columns. We can use ai to analyse and generate table and column usage statistic
+Choose the right index types. Test index to see if it works fine
+
+3 Scenario based indexing: Identify slow queries, check execution plans for full scans, nested loop joins and choose right index to optimize query then test the query and compare execution plan
+Do this for each slow query untill all are no longer slow
+
+4 Monitoring & Maintenance
+Monitor index usage, missing indexes, duplicate indexes, update statistics and check fragmentation

@@ -1,0 +1,78 @@
+Indexes get fragmented, unused and outdated leaning to poor performance and increase in storage cost
+
+We have to:
+
+Monitor index usage: keep only indexes that are frequently used and monitor its useage to delete unused ones. Use sp_helpindex to monitor index usage   sp_helpindex 'Sales.Table' to get table index info it is a system stored procedure. The Sys schema stores metadata about database tables, view, index.
+SELECT * FROM sys.indexes idx  (object_id, name, is_primary_key, is_unique, is_disabled e.t.c)
+join sys.tables tbl with sys.indexes with inner join on object_id  will give database index (index for all tables in a db) then
+For usage SELECT * FROM dm_db_index_usage_stats s Left join this on object_id AND index_id (s.index_id  AND s.object_id = idx.index_id) s.user_seeks, user_scans, user_lookups,user_updates
+columns(tbl.name, idx.name, idx.type_desc, idx.is_primary_key, idx.is_unique, idx.is_disabled)
+These stats are temporary because of version on production it will be permanent. 90% of indexes are unused so frop unused indexes. This saves storage and improves write performance
+
+Monitor missing indexes: improves performance, we can get recommendation from the db itself
+SELECT * FROM sys.dm_db_missing_index_details
+These stats are cached because of version and would be permanent if production version is used. Evaluate the recommendations before creation.
+
+Monitor duplicate indexes: remove redundant indexes
+SELECT
+	tbl.name TableName,
+	col.name IndexColumn,
+	idx.name IndexName,
+	idx.type_desc IndexType,
+	COUNT(*) OVER (PARTITION BY tbl.name, col.name) ColumnCount
+FROM sys.indexes idx
+JOIN sys.tables tbl ON idx.object_id = tbl.object_id
+JOIN sys.index_columns ic ON idx.object_id = ic.object_id AND idx.index_id = ic.index_id
+JOIN sys.columns col ON ic.object_id = col.object_id AND ic.column_id = col.column_id
+ORDER BY tbl.name, col.name
+Remove those with more than one count
+
+Update statistics: Database engine creates statistics(metadata) about table like row number value distribution, histogram e.t.c
+Th database uses statistics to determine which method to use to load data after creating a plan
+
+
+SELECT
+    SCHEMA_NAME(t.schema_id) AS SchemaName,
+    t.name AS TableName,
+    s.name AS StatisticName,
+    p.last_updated AS LastUpdated,
+    p.rows AS TotalRows,
+    p.modification_counter AS RowsModifiedSinceUpdate,
+    DATEDIFF(day, p.last_updated, GETDATE()) As LastUpdateDay,
+    CAST((p.modification_counter * 100.0) / NULLIF(p.rows, 0) AS DECIMAL(5,2)) AS ModificationPercent
+FROM sys.stats s
+INNER JOIN sys.tables t ON s.object_id = t.object_id
+CROSS APPLY sys.dm_db_stats_properties(s.object_id, s.stats_id) p
+ORDER BY p.modification_counter DESC, p.last_updated ASC;
+
+UPDATE STATISTICS TableName StatisticName
+UPDATE STATISTICS TableName     all statistics for this table
+FOR whole database Do     EXEC sp_updatestats
+
+DO weekly job update statistics on weekends or everyday for small table.
+Or when a lot of changes is expected
+
+Monitor fragmentations: When we have unused spaces in data pagesor data pages are out of order slowing queries and inefficient storage usage
+We 1- Reorganize: light operation that defragments leaf nodes to keep them sorted
+2- Rebuild: Recreates index from scratch a heavy operation
+
+Check avg_fragmentation_in_percentage
+
+SELECT
+	tbl.name TableName,
+	idx.name IndexName,
+	s.avg_fragmentation_in_percent,
+	s.page_count
+FROM sys.dm_db_index_physical_stats(DB_ID(), NULL, NULL, NULL, 'LIMITED') AS s
+INNER JOIN sys.tables tbl
+ON s.object_id = tbl.object_id
+INNER JOIN sys.indexes AS idx
+ON idx.object_id = s.object_id AND idx.index_id = s.index_id
+ORDER BY s.avg_fragmentation_in_percent DESC
+
+if fragmentation is less than 10 No action
+10 and 30 reorganize
+30 and above Rebuild index
+
+ALTER INDEX Name ON TableName REORGANIZE
+ALTER INDEX Name ON TableName REBUILD

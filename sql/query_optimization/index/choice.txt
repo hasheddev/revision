@@ -1,0 +1,10 @@
+Heap Index: use when ther is no primary key and use for non important tables for fast inserts like staging table
+
+Clustered Index(Rowstore): Default and used for primary keys
+Column Store: Complex analytics and large table size
+
+Non Clustered: Nonprimary key columns for foreing keys, joins filters
+
+Filtered index: Use when subset of data is target or size is a problem
+
+Unique: Use to ensure data integrity and slight performance increase

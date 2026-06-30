@@ -1,0 +1,16 @@
+Unique index ensures no duplicate value exists in specific column.
+It enforces uniqueness and slightly increases query performance as search stops since there is no duplicate this is good for unique columns
+
+This slows down read compared to non-unique but read faster
+
+CREATE [UNIQUE] [CLUSTERED | NONCLUSTERED] [COLUMNSTORE] INDEX name On Table Columns        Non unique is the default
+
+Filtered index inxludes only rows that meet certain conditions e,g we have only active customers will have customers at the leaf nodes and the datapage while others will not
+
+5t is used for targeted optimization to store only relevant data in index and it uses less storage
+
+CREATE [UNIQUE] [NONCLUSTERED] INDEX
+On Table (Columns, Columns, ...)
+WHERE [COndition]
+
+Filtered index cannot be used on a clustered index or a column store index

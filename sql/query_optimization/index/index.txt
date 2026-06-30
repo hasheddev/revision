@@ -1,0 +1,9 @@
+An index is a data structure that provides quick access to data. Optimizing the speed of your queries
+
+Index types used depends on use cases
+
+Structure: Clustered and Non-clustered
+Storage: Rowstore, Column Store index
+Functions: Unique index, Filtered index
+
+Some index are good for reading performance others for writing performance

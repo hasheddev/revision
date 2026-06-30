@@ -1,0 +1,27 @@
+Rowstore index splits data into rows and stores pages row by row
+.Pages store rows like name, salary
+
+Column store index stores column values in pages e.g one page contains name column another salary. To find an entire row we need multiple pages while rowstore we get all row values in a page
+
+Rowstore is the default storage method But is a column store index is created this changes. When a coluns store is created data is spit by rows forparallel processing then split into columns for each row group. Data is the compressed making this fater than row store.The result is stored in special data page known as LOB large object page.
+It has header, Segment header(segment id, rowgroup id, dictionary id)  Data stream(sequence of values that represent the compressed data used as key in a dictionary to get full value)
+
+There can be a clustered column index this will converts all rows into a column store and delete previous row stores but for non clustered column store it coexists with the original row store as a companion
+
+Rowstore store index is used for fast analytics but column tore index is faster for anlytics,COUNT (*) collects allrow data from different pages then aggregate matching rows in row store but column store only reads data from needed column it reads lesser pages and only uses necessary column
+
+Comparison
+Rowstore is less efficient and column store is more efficient due to compresson
+Rowstore has fair read wirte speed columnstore has fast read but slow write
+Rowstore has lower i/o efficiency as it retrives unnecassar columns while column store is more efficientRow store is suitable for online transaction system(OLTP) where full records are accessed frequently likecommerce, finance, banking while column store is suitable Analytical(OLAB) systems like data warehouse, business inteligence and reporting analytics
+
+ROWSTORE IS THE DEFAULT
+
+CREATE CONCLUSTEED COLUMNSTORE INDEX Name On Table (No column name is allowed)
+
+CREATE NONCONCLUSTEED COLUMNSTORE INDEX Name On Table Columns
+all columns included in new structure by default
+
+There can only be one column store index in a tale which can be clustered or non clustered in sqlserver but otehr servers might allow it
+
+Column store index has best storage efficiency followed by heap(non sorted) followe by Rowstore clustered inded
