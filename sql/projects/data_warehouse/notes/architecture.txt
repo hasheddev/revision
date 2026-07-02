@@ -1,0 +1,10 @@
+Three layers
+
+Sources -> Warehouse -> Consumer
+
+In sources add svgs for sources folder, files
+In all add object type
+In sources add interface
+In bronze silver, gold add Load, Tranformation and model
+
+Use Draw io

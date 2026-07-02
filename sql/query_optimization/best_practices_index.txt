@@ -1,0 +1,9 @@
+Avoid over indexing
+
+Drop unused index
+
+Update index statistics weekly
+
+Reorganize and rebuild to avoid fragmentation weekly
+
+Partition big tables and create column store for aggregation

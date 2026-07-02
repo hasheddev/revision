@@ -1,0 +1,41 @@
+Determine purpose of each layer
+
+Bronze layer
+- Definition: raw unprocessed data as is from soucce
+- Objective: Traceability & debugging
+
+Silver layer
+- Definition: clean & standardized data
+- Objective: (intermediate layer) Prepar for data analysis
+
+Gold layer
+- Definition: Business ready data
+- Objective: Provide data to be consumed for reporting and analytics
+
+Object types Tables for bronze and silver, view for gold
+Best practice says last layer should be virtual
+
+
+LOAD method
+Bronze: Full load(truncate & insert)
+Silver: Full load(truncate & insert)
+Gold: None
+
+Data Transformations
+Bronze: None
+Silver: Data cleansing, standadization, normalization, derived columns, enrichment
+Gold: Data integartion, aggregation, business logic and rules
+
+Data modelling:
+Bronze: None
+Silver: None
+Gold: Start schema, aggregated objects, flat tables
+
+Target audience
+Bronze: data engineer
+Silver: data engineer, data analysts
+Gold: data analysts, business users
+
+Separation of Concern is a security feature where parts are responsible for specific tasks and there is no duplicate task like bronze, silver and bronze
+
+When building bronze layer interview source experts -> code ingestion -> validate completeness and schema checks

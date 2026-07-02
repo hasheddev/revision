@@ -46,9 +46,9 @@ WITH Emp_Hierarchy AS (
         EmployeeID,
         FirstName,
         ManagerID,
-        1 AS HierarchyLevel -- Rename it so it doesn't conflict with your table's 'Level'
-    FROM Sales.Employees
-    WHERE ManagerID IS NULL
+        1 AS HierarchyLevel
+FROM Sales.Employees
+WHERE ManagerID IS NULL
 
     UNION ALL
 

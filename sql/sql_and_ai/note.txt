@@ -1,0 +1,33 @@
+** Find your own solution only use ai when not necessary
+
+- Can be used to solve tasks with context
+
+- Improve readability and remove redundancy
+
+- Optimize query performance
+
+- Optimize execution plans with image to chatgpt
+
+Have it describe and explain improvements and query/execution plan, identify performance issues ask for suggestions and reason behind the suggestion to improve.
+
+- Debugging errors: explain errors suggest solutions
+
+- Explain result of query have it break down query structure base don result and explain step by step query execution
+
+- Styling and formatting
+
+- Documentations and commenting
+
+- Improve DDL: naming, datatypes, integrity, indexes, normalization
+
+- Generate datasets for testing server  define shape and how realistic and size required and joinable data if necessary
+
+- generate roadmap for a course for one on one learning gining enough contenxt like knowledge level, desires, use cases
+
+- Undestand concepts
+
+- Compare concepts
+
+- Practice and have ai act as a trainer making it interactive specifying data needed, dificulty level, display result, review and provide feedback and suggest improvements.
+
+- Prepare for interviews make it interactive and have it provide feedbacks progress to advanced topics and alo exams

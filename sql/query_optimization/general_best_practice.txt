@@ -1,0 +1,5 @@
+Write clear queries
+
+Optimize performance when necessary
+
+Always test using execution plan

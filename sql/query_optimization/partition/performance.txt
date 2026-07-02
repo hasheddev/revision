@@ -1,0 +1,2 @@
+We check execution time to compare performance
+We reduce number of rows read

@@ -1,0 +1,66 @@
+This is the process of dividing big table into smaller partitions while still being treated as a single logical table
+This is done when a table gets too big leading to big index
+We might partition by year and put each year in different partitions. each partition can be processed parallely or independently.
+Each partition has its own index
+
+STEPS
+
+1 We need a partition function: The logic on how to define table into partitions based on partition key we use dates, region, countries e.t.c  We use boundary values
+We hava the left and the right method. The left has the boundary belonging to partition 1(left) while right has the boundary belonging to partition 2(right partition) left includes all days in 2023 including the last day
+
+CREATE PARTITION FUNCTION PartitionByYear (DATE)
+AS RANGE LEFT FOR VALUES ('2023-12-31', '2024-12-31', '2025-12-31')
+
+SELECT * FROM sys.partition_functions
+
+2 Create FileGroups: A logical container of one or more datafiles. It gives freedom and flexibility for partition arrangement.
+
+ALTER DATABASE SalesDB ADD FILEGROUP FG_2023;
+ALTER DATABASE SalesDB ADD FILEGROUP FG_2024;
+ALTER DATABASE SalesDB ADD FILEGROUP FG_2025;
+ALTER DATABASE SalesDB ADD FILEGROUP FG_2026;
+
+ALTER DATABASE SalesDB REMOVE FILEGROUP FG_2023;
+
+SELECt * FROM sys.filegroups WHERE type = 'FG'
+
+3 Create data files .mdf files
+
+ALTER DATABASE SalesDB ADD FILE
+(
+NAME = P_2023 -- logical name
+FILENAME = 'C:\Program Files\Microsoft SQL Server\MSSQL17.SQLEXPRESS\MSSQL\DATA\P_2023.mdf'
+) TO FILEGROUP FG_2023
+
+SELECT FROM sys.filegroups
+JOIN sys.master_files ON data_space_id
+WHERE msater_files.database_id = DB_ID('SalesDB')
+
+4 Create partition scheme to link file group(like folders) to funcion
+
+CREATE PARTITION SCHEME SchemePartitionByYear
+As PARTITION PartitionByYear --function
+TO (FG_2023, FG_2024, FG_2024, FG_2026)
+--3 boundaries = 4 partitions = 4 file groups order matters or data is mixed for years
+
+JOIN partition_schemes, partition_functions(function_id), destination_data_spaces(data_space_id) and filegroups(data_space_id) for correcness
+
+5 Create partiton table
+
+CREATE TABLE Sales.Orders_Partitoned
+(
+	OrderId INT,
+	OrderDate DATE,
+	Sales INT
+) ON SchemePartitionByYear (OrderDate)
+
+SELECT
+ p.partition_number PartitionNumber,
+ f.name As PartitionFileGroup,
+ p.rows As NumberOfRows
+FROM sys.partitions p
+JOIN sys.destination_data_spaces dds ON p.partition_number = dds.destination_id
+JOIN sys.filegroups f on dds.data_space_id = f.data_space_id
+WHERE OBJECT_NAME(p.object_id) = 'Orders_Partitioned'
+
+Use to check if partition works correctly

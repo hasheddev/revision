@@ -1,0 +1,39 @@
+A warehouse is a subject oriented, integrated, time-variant and non-volatile collection of data in support of management's decision making process.
+
+Subject oriented: focused on one are like sales, finance, cuutomers.
+Integrated: It uses multiple and integrates multiple sources.
+Non volatile: Data is not deleted or modified
+Time variant: Contains historical data
+
+Without a warhouse the reports could be errot prone and also reports vary in age and take a long time to generte and also big data aggregation becomes an issue. Integrated reports become dificcult.
+
+ETL: Extract transform and load to data warehouse where all reports use this automated process. It is less error prone and reprots are getten much faster hours/minutes with integrated result and historicat result and reports have close status.
+The data engineer builds the ETL components andthe analyst consumes the data to create reports.
+Extract: pull out data needed from source
+Transform: Change shape cleanse integrate, normalize into required state
+Load: Insert data into target
+From source to taget we might use EL. ETL, TL, L
+
+Extraction methods: pulling from source or source pushing to warehouse.
+Types: Full extraction or Incremental extraction(new data)
+Techniques: manual extraction, database query, file parsing, api calls, event based streaming, web scraping, change data capture
+
+Transformation: Data enrichment, data integration, derived column, Normalization/standardization, Business Rules&logic, Data aggregation, Data cleansing
+Cleanising by:  removing duplicates, data filtering, handling missing data, handlimg invalid values, handling unwanted spaces, data type casting, outlier detection
+
+Load:
+Processing types - batch processing runs and load one time, Stream processing change processed as soon as it is made for real time data warehouse
+Load methods: full load: truncate & insert, upsert, drop then create then insert
+incremental Load: upsert, append(if from logs), merge(update insert delete)
+
+Slowling changing dimensions:
+SCD 0 historization: no change no update
+SCD 1: overwrite old value
+SCD2: insert  new record and make old one inactive.
+
+This project does: Full extraction, Pull extraction, File parsing technique
+
+Transformation: every
+
+Load: batch processing and full load(truncate and insert)
+SCD 1: update data warehouse

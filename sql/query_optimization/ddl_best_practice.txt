@@ -1,0 +1,10 @@
+Avoid VARCHAR and TEXT if possible as they consume a lot of resources and index is expensive and it causes fragmentation
+
+TEXT is worst than VARCHAR
+Avoid MAX unnecessarily large data types
+
+USE NOT NULL as much as possible
+
+Create clustered PRIMARY KEY
+
+CREATE Non clustered index for forein key if frequently used for query

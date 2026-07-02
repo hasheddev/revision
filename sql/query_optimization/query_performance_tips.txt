@@ -1,0 +1,74 @@
+- For small-medium tables query optimizer may react to different styles(hundreds of thousands)
+Always check execution plan to confirm improvements when optimizing query, if there is no improvement pick easier to read query
+
+- Select only what is needed from a table
+
+- Aviod Distinct and Order By if unnecessary to sort or remove duplicates
+
+- Limit rows selected for exploration purposes
+
+For Filtering
+
+- Create non clustered index on frequently used columns in where clauses
+
+- Avoid applying Functions to columns in Where clauses WHERE LOWER(column) as they can block index usage use LIKE 'A%', BETWEEN year AND year
+
+- Avoid leading wildcards as they prevent index usage '%Gold%'(Bad)  'Gold%' Good
+
+- Use IN instead of Multiple OR as this is faster
+
+For Joins
+
+- Use inner joins where possible followed by left,right then outer
+- Use explicit join  INNER JOIN instead of implicit join
+FROM Custoers c, Orders o
+Where c.Id = o.Id      Bad
+
+- Index Columns used in on joins create non clustered index if none
+
+- Filtering before joining for big tables
+After join = INNER JOIN table On val = val
+WHERE column = query
+
+During join = INNER JOIN table On val = val
+AND right.column = query
+
+Before join = INNER JOIN (Select val, val FROM table where column = query) t 
+On val = val     OR CTE can be used
+For small tables and simple queries we get same performance for all three due to optimization for complex query / big table isolate the preparation step in a cte or subquery
+
+- Aggregate before joining table
+1. Grouping and joining
+SELECT COUNT(Column)
+INNER JOIN table On val = val
+Group By column, column
+
+2. Preaggregated subquery
+FROM table 
+	INNER JOIN (SELECT ... COUNT(column) FROM ... GROUP BY column) o
+ON column = column
+
+3. Correlated subquery
+SELECT column,
+	(SELECT COUNT(column) FOM table WHERE column = query)
+
+Correlated are the worst as aggregation is done individually
+Use preaggregated for big tables else for small tables use 1 as both have same performance here
+
+- Use union instead of OR in joins
+
+- Check execution plan for joins for nested loops ok for small but bad for big table and use sqlhints
+
+- Use union ALL if duplicates are acceptable or there is no duplicates
+
+- Use Distinct with UNION ALL for big table and check execution plan
+
+- Use columnstore index for aggregations on large table
+
+- Pe-aggregate data and store it in new table for reporting for long running query
+
+For Subquery  JOIN vs Exists vs IN
+In is bad for big tables. For medium JOIN and Exists have similar speed but JOIN is best practice. Exists is best practice for large tables in some scenarios
+
+- Avoid redundant logic in query
+instead of multiple average use CASE AVG(column) OVER() in select(good) or use a CTE

@@ -1,0 +1,20 @@
+Analysis:
+
+1 Context & Ownership:
+- Data owner
+- What business does the data support
+- Systems and data Documentation
+- Data model and catalog
+
+2 Architecture & Tech stack
+- Data storage(Aws, Oracle, sql server)
+- Integration capabilities(Api, kafka, file extract, Directdb connection)  channel to extract this data.
+
+
+Extract and Load:  Discuss with source systems experts
+- Incremental load vs full load
+- Data scope & Historical needs (available or should be built)
+- Expected size
+- Data volume limitation
+- How to avoid impacting source system performance
+- Authentication and authorization

@@ -1,0 +1,20 @@
+Approaches to building data warehouse:
+- Build data warehouse if you have structured data
+- Data lake: Structured, unstructured and semi structured data like videos, logs, images and focus is on reporting, advanced analytics and machine learning(can turn into data swamp if too unorganized)
+- Data lakehouse mixeture of warehouse and lake flexible and structured(modern)
+- Data mesh: decentarlized data management system to avoid bottleneck and dara is shared
+
+DATA WAREHOUSE construction methods
+Inmon Approach:
+Start with staging then organize data into enterprise data warehouse in 3rd normal form
+Add data into data marts from EDW focused on one topic and ready for consumption.
+Connect bi tool to data marts
+
+Kimball: Jumps from staging to data marts as warehouse takes a lot of time and there might be more chaos and repetitions
+
+Data Vault: Same steps as Inmon but splits EDW into two layer adding more rules. Raw vault -> Business vault -> Data marts -> Bi tools
+The raw vault contains original data and business vault contains rules and tanformations that prepare data for data mart
+Medallion architecture: bronze, silver and gold
+Bronzeis similar to staging, silver layer we do transformation and data cleansing, gold layer webuild different objects that we want to share as data poducts
+
+Medallion is used in this project

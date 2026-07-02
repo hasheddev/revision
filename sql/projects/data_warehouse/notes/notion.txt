@@ -1,0 +1,24 @@
+ Create a project names data warehouse project
+
+/database - inline     name DWH Epics then hide it
+Name new table - Project Epics
+Add these to table:
+Requirement Analysis
+Design Data Architecture
+Project Initialization
+
+/database - inline     name DWH tasks hide it
+Rename table Project Tasks click + icon  search relation search DWH Epics two way relation add relation. Move / DWH epics to the left side click it to select an epic to its right
+Add - Choose Data Management Approach
+Select it agian and add - Braistorm & design The layer -
+Select Project Initialization: Add - Create Git Repo and prepare structure, - Create DB & Schema
+Click plus search for check box ass  it to all
+
+Click on plus on the Project Epics table search rollups select Relation DWH Tasks -> click property, select checkbox
+Click calculate change to Percent percent checked, Bar name Progress  CLick / DWH Tasks and hide in view
+
+In project Task change icon to check and rename Name to Tasks
+
+In Project epic we can add icon by clicking epic and selecting epic
+
+In Project task three dots group grpoup by epic

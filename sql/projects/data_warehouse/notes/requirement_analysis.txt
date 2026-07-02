@@ -1,0 +1,13 @@
+Understand project requirements from stakeholders
+
+1- Data warehouse (Etl and warahouse): A modern warehouse with sql server to consolidate sales data, enabling analytical reporting and informed decision making
+Specs:
+- Data sources: Csv files ERP and CRM
+- Data Quality: iCleanse and resolve issues before analysis
+- Integartion: Combine both sources into a single model designed for analytical queries
+- Scope: Focus onlatest dataset only; historixation not required
+- Docs: provide clear documentatiom of the model to support both business stakeholders and analytics team
+
+
+2- Analytics
+Develop sql based queries to deliver detailed insights into:

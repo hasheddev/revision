@@ -1,0 +1,11 @@
+General: Naming convention, language and avoid reserved word
+
+Naming conventions:
+Bronze: sourcesystem_entity e,g crm_user_info
+
+Silver: names start with source system and match original name no renaming, sourcesystem_entity
+
+Gold: Use meaningful business aligned table names starting with category  category_entity
+dim = dimensiom fact = fact table. agg = aggregated table
+dim_customer = dimension table for customers
+fact_sales = fact table containing sales transactions

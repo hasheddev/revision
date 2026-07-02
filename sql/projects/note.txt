@@ -1,0 +1,9 @@
+There are 3 types of data analytics projecf
+
+Data warehouse: Foundation of data analytic project, it is about how to organize, structure and prepare data for analysis
+
+Exploratory data analysis(EDA): Understand and uncover insights in data.It asks right qustion and derives answers using sql
+
+Advanced data Analytics: Answers business questions using complex quries and advanced techniques to generate reports on trends, segmenting data and so on.
+
+Data warehouse involves: Etl/Elt processing, Data archtecture, Data integration, Data cleansing, Data load and Data modeling
