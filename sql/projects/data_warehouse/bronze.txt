@@ -18,3 +18,6 @@ Extract and Load:  Discuss with source systems experts
 - Data volume limitation
 - How to avoid impacting source system performance
 - Authentication and authorization
+
+
+Analysing source system => Data ingestion => Validating data completeness & schema checks => Draw data flow daigram & Commit
